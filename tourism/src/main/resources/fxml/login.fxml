@@ -32,12 +32,12 @@
                                 <Image url="@../images/logo.png" />
                             </ImageView>
 
-                            <Label styleClass="login-brand-title" text="VisiNepalTech">
+                            <Label fx:id="brandTitleLabel" styleClass="login-brand-title" text="%app.brandTitle">
                                 <font>
                                     <Font name="System Bold" size="28.0" />
                                 </font>
                             </Label>
-                            <Label styleClass="login-brand-subtitle" text="Tourism Management System">
+                            <Label fx:id="brandSubtitleLabel" styleClass="login-brand-subtitle" text="%app.brandSubtitle">
                                 <font>
                                     <Font size="16.0" />
                                 </font>
@@ -55,7 +55,7 @@
                     <!-- Right side - Login Form -->
                     <VBox alignment="CENTER" prefWidth="400.0" spacing="20.0" styleClass="login-right-panel">
                         <children>
-                            <Label styleClass="login-title" text="Login">
+                            <Label fx:id="loginTitle" styleClass="login-title" text="%login.title">
                                 <font>
                                     <Font name="System Bold" size="24.0" />
                                 </font>
@@ -65,37 +65,37 @@
                                 <children>
                                     <VBox spacing="5.0">
                                         <children>
-                                            <Label styleClass="form-label" text="Username:" />
-                                            <TextField fx:id="usernameField" promptText="Enter your username" styleClass="form-input" />
+                                            <Label fx:id="usernameLabel" styleClass="form-label" text="%login.username" />
+                                            <TextField fx:id="usernameField" promptText="%login.prompt.username" styleClass="form-input" />
                                         </children>
                                     </VBox>
 
                                     <VBox spacing="5.0">
                                         <children>
-                                            <Label styleClass="form-label" text="Password:" />
-                                            <PasswordField fx:id="passwordField" promptText="Enter your password" styleClass="form-input" />
+                                            <Label fx:id="passwordLabel" styleClass="form-label" text="%login.password" />
+                                            <PasswordField fx:id="passwordField" promptText="%login.prompt.password" styleClass="form-input" />
                                         </children>
                                     </VBox>
 
                                     <VBox spacing="5.0">
                                         <children>
-                                            <Label styleClass="form-label" text="Language:" />
+                                            <Label fx:id="languageLabel" styleClass="form-label" text="%login.language" />
                                             <ComboBox fx:id="languageComboBox" onAction="#handleLanguageChange" prefWidth="200.0" styleClass="form-combo" />
                                         </children>
                                     </VBox>
 
                                     <Label fx:id="errorLabel" styleClass="error-label" visible="false" />
 
-                                    <Button fx:id="loginButton" mnemonicParsing="false" prefWidth="200.0" styleClass="primary-button" text="Login" />
+                                    <Button fx:id="loginButton" mnemonicParsing="false" prefWidth="200.0" styleClass="primary-button" text="%login.button.login" />
 
                                     <!-- Added Forgot Password, Register, Clear Fields, Exit buttons -->
                                     <HBox alignment="CENTER" spacing="10.0">
-                                        <Button text="Forgot Password?" styleClass="link-button" onAction="#handleForgotPassword" />
-                                        <Button text="Register" styleClass="link-button" onAction="#handleRegister" />
+                                        <Button fx:id="forgotPasswordButton" text="%login.button.forgotPassword" styleClass="link-button" onAction="#handleForgotPassword" />
+                                        <Button fx:id="registerButton" text="%login.button.register" styleClass="link-button" onAction="#handleRegister" />
                                     </HBox>
                                     <HBox alignment="CENTER" spacing="10.0">
-                                        <Button text="Clear Fields" styleClass="tertiary-button" onAction="#handleClearFields" />
-                                        <Button text="Exit" styleClass="delete-button" onAction="#handleExit" />
+                                        <Button fx:id="clearFieldsButton" text="%login.button.clearFields" styleClass="tertiary-button" onAction="#handleClearFields" />
+                                        <Button fx:id="exitButton" text="%login.button.exit" styleClass="delete-button" onAction="#handleExit" />
                                     </HBox>
 
                                 </children>

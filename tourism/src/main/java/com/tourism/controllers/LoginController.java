@@ -1,38 +1,82 @@
 package com.tourism.controllers;
 
+import com.tourism.TourismApp;
 import com.tourism.services.AuthenticationService;
 import com.tourism.utils.FileDataManager;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.event.ActionEvent; // Import ActionEvent
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Alert; // <--- ADD THIS IMPORT
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    @FXML private TextField usernameField;
-    @FXML private PasswordField passwordField;
-    @FXML private Button loginButton;
-    @FXML private Label errorLabel;
-    @FXML private CheckBox rememberMeCheckBox;
-    @FXML private ComboBox<String> languageComboBox; // Make sure this is also declared if not already
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private PasswordField passwordField;
+    @FXML
+    private ComboBox<String> languageComboBox;
+    @FXML
+    private Label errorLabel;
+    @FXML
+    private Button loginButton;
+
+    // FXML fields for localization - ensure these fx:id's are in your login.fxml
+    @FXML
+    private Label loginTitle;
+    @FXML
+    private Label usernameLabel;
+    @FXML
+    private Label passwordLabel;
+    @FXML
+    private Label languageLabel;
+    @FXML
+    private Label brandTitleLabel;
+    @FXML
+    private Label brandSubtitleLabel;
+    @FXML
+    private Button forgotPasswordButton;
+    @FXML
+    private Button registerButton;
+    @FXML
+    private Button clearFieldsButton;
+    @FXML
+    private Button exitButton;
 
     private AuthenticationService authService;
+    private ResourceBundle bundle;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         authService = new AuthenticationService();
 
-        // Initialize ComboBox items (example, adjust as needed)
-        if (languageComboBox != null) {
-            languageComboBox.getItems().addAll("English", "Nepali"); // Add your languages
-            languageComboBox.getSelectionModel().select("English"); // Set default
+        bundle = ResourceBundle.getBundle("i18n.messages", TourismApp.getLocale());
+
+        languageComboBox.setItems(FXCollections.observableArrayList("English", "नेपाली (Nepali)"));
+        if (TourismApp.getLocale().getLanguage().equals("ne")) {
+            languageComboBox.getSelectionModel().select("नेपाली (Nepali)");
+        } else {
+            languageComboBox.getSelectionModel().select("English");
         }
 
         setupEventHandlers();
         clearErrorMessage();
+        applyLocalizedTexts();
     }
 
     private void setupEventHandlers() {
@@ -49,14 +93,39 @@ public class LoginController implements Initializable {
         }
     }
 
-    // This is the missing method you need to add
+    private void applyLocalizedTexts() {
+        if (loginTitle != null) loginTitle.setText(bundle.getString("login.title"));
+        if (usernameLabel != null) usernameLabel.setText(bundle.getString("login.username"));
+        if (passwordLabel != null) passwordLabel.setText(bundle.getString("login.password"));
+        if (languageLabel != null) languageLabel.setText(bundle.getString("login.language"));
+        if (loginButton != null) loginButton.setText(bundle.getString("login.button.login"));
+        if (forgotPasswordButton != null) forgotPasswordButton.setText(bundle.getString("login.button.forgotPassword"));
+        if (registerButton != null) registerButton.setText(bundle.getString("login.button.register"));
+        if (clearFieldsButton != null) clearFieldsButton.setText(bundle.getString("login.button.clearFields"));
+        if (exitButton != null) exitButton.setText(bundle.getString("login.button.exit"));
+
+        if (usernameField != null) usernameField.setPromptText(bundle.getString("login.prompt.username"));
+        if (passwordField != null) passwordField.setPromptText(bundle.getString("login.prompt.password"));
+
+        if (brandTitleLabel != null) brandTitleLabel.setText(bundle.getString("app.brandTitle"));
+        if (brandSubtitleLabel != null) brandSubtitleLabel.setText(bundle.getString("app.brandSubtitle"));
+
+        errorLabel.setVisible(false);
+    }
+
     @FXML
-    private void handleLanguageChange(ActionEvent event) {
-        if (languageComboBox != null) {
-            String selectedLanguage = languageComboBox.getSelectionModel().getSelectedItem();
-            System.out.println("Language changed to: " + selectedLanguage);
-            FileDataManager.logActivity("SYSTEM", "Language changed to: " + selectedLanguage);
-            // You can add logic here to change the application's language
+    private void handleLanguageChange() {
+        String selectedLanguage = languageComboBox.getSelectionModel().getSelectedItem();
+        Locale newLocale;
+        if ("नेपाली (Nepali)".equals(selectedLanguage)) {
+            newLocale = new Locale("ne");
+        } else {
+            newLocale = Locale.ENGLISH;
+        }
+
+        if (!TourismApp.getLocale().equals(newLocale)) {
+            TourismApp.setLocale(newLocale);
+            FileDataManager.logActivity("SYSTEM", "Language changed to: " + newLocale.getDisplayName());
         }
     }
 
@@ -69,15 +138,15 @@ public class LoginController implements Initializable {
             clearErrorMessage();
 
             if (username.isEmpty() || password.isEmpty()) {
-                showError("Please enter both username and password");
+                showError(bundle.getString("login.error.invalidCredentials"));
                 return;
             }
 
             if (authService.authenticateUser(username, password)) {
                 FileDataManager.logActivity(username, "Login successful");
-                com.tourism.TourismApp.switchScene("/fxml/dashboard.fxml", "Dashboard");
+                TourismApp.switchScene("/fxml/dashboard.fxml", bundle.getString("app.dashboardTitle"));
             } else {
-                showError("Invalid username or password");
+                showError(bundle.getString("login.error.invalidCredentials"));
                 passwordField.clear();
             }
 
@@ -92,9 +161,9 @@ public class LoginController implements Initializable {
     private void handleForgotPassword() {
         try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Forgot Password");
-            alert.setHeaderText("Password Reset");
-            alert.setContentText("Please contact your system administrator to reset your password.");
+            alert.setTitle(bundle.getString("login.button.forgotPassword"));
+            alert.setHeaderText(bundle.getString("login.forgotPassword.header"));
+            alert.setContentText(bundle.getString("login.forgotPassword.content"));
             alert.showAndWait();
 
             FileDataManager.logActivity("SYSTEM", "Forgot password requested");
@@ -107,12 +176,12 @@ public class LoginController implements Initializable {
     @FXML
     private void handleRegister() {
         try {
-            com.tourism.TourismApp.switchScene("/fxml/tourist-registration.fxml", "Registration");
+            TourismApp.switchScene("/fxml/tourist-registration.fxml", bundle.getString("login.button.register"));
             FileDataManager.logActivity("SYSTEM", "Registration page accessed");
 
         } catch (Exception e) {
             System.err.println("Registration navigation error: " + e.getMessage());
-            showError("Registration is currently unavailable");
+            showError(bundle.getString("login.error.registerUnavailable"));
         }
     }
 
