@@ -8,45 +8,31 @@ import java.util.stream.Collectors;
 
 public class TouristService {
 
-    public boolean registerTourist(Tourist tourist) {
+    // This method will handle both creating new tourists and updating existing ones.
+    // It directly calls FileDataManager.saveTourist which should have the logic to overwrite if ID exists.
+    public boolean saveTourist(Tourist tourist) { // Renamed from registerTourist/updateTourist for controller
         try {
-            // Generate ID if not provided
+            // Generate ID if not provided (for new tourists)
             if (tourist.getTouristId() == null || tourist.getTouristId().isEmpty()) {
                 tourist.setTouristId(generateTouristId());
             }
 
-            // Generate account ID if not provided
+            // Generate account ID if not provided (for new tourists)
             if (tourist.getAccountId() == null || tourist.getAccountId().isEmpty()) {
                 tourist.setAccountId(generateAccountId());
             }
 
-            boolean saved = FileDataManager.saveTourist(tourist);
+            boolean saved = FileDataManager.saveTourist(tourist); // FileDataManager handles add/update logic
 
             if (saved) {
-                FileDataManager.logActivity("SYSTEM", "Tourist registered: " + tourist.getFullName());
+                FileDataManager.logActivity("SYSTEM", "Tourist saved/updated: " + tourist.getFullName());
             }
 
             return saved;
 
         } catch (Exception e) {
-            System.err.println("Error registering tourist: " + e.getMessage());
-            FileDataManager.logActivity("SYSTEM", "Tourist registration error: " + e.getMessage());
-            return false;
-        }
-    }
-
-    public boolean updateTourist(Tourist tourist) {
-        try {
-            boolean updated = FileDataManager.saveTourist(tourist);
-
-            if (updated) {
-                FileDataManager.logActivity("SYSTEM", "Tourist updated: " + tourist.getTouristId());
-            }
-
-            return updated;
-
-        } catch (Exception e) {
-            System.err.println("Error updating tourist: " + e.getMessage());
+            System.err.println("Error saving/updating tourist: " + e.getMessage());
+            FileDataManager.logActivity("SYSTEM", "Tourist save/update error: " + e.getMessage());
             return false;
         }
     }
@@ -65,7 +51,7 @@ public class TouristService {
             return FileDataManager.getAllTourists();
         } catch (Exception e) {
             System.err.println("Error getting all tourists: " + e.getMessage());
-            return List.of();
+            return List.of(); // Return empty list on error
         }
     }
 
@@ -80,39 +66,18 @@ public class TouristService {
         }
     }
 
-    public boolean deactivateTourist(String touristId) {
+    // Method to handle deleting a tourist
+    public boolean deleteTourist(String touristId) { // Added this method for TouristController
         try {
-            Tourist tourist = FileDataManager.findTouristById(touristId);
-            if (tourist != null) {
-                tourist.setActive(false);
-                boolean updated = FileDataManager.saveTourist(tourist);
-
-                if (updated) {
-                    FileDataManager.logActivity("SYSTEM", "Tourist deactivated: " + touristId);
-                }
-
-                return updated;
+            boolean deleted = FileDataManager.deleteTourist(touristId); // Assuming FileDataManager has this method
+            if (deleted) {
+                FileDataManager.logActivity("SYSTEM", "Tourist deleted: " + touristId);
             }
-            return false;
-
+            return deleted;
         } catch (Exception e) {
-            System.err.println("Error deactivating tourist: " + e.getMessage());
+            System.err.println("Error deleting tourist: " + e.getMessage());
+            FileDataManager.logActivity("SYSTEM", "Tourist deletion error: " + e.getMessage());
             return false;
-        }
-    }
-
-    public List<Tourist> searchTourists(String searchTerm) {
-        try {
-            return FileDataManager.getAllTourists().stream()
-                    .filter(tourist ->
-                            (tourist.getFullName() != null && tourist.getFullName().toLowerCase().contains(searchTerm.toLowerCase())) ||
-                                    (tourist.getEmail() != null && tourist.getEmail().toLowerCase().contains(searchTerm.toLowerCase())) ||
-                                    (tourist.getNationality() != null && tourist.getNationality().toLowerCase().contains(searchTerm.toLowerCase()))
-                    )
-                    .collect(Collectors.toList());
-        } catch (Exception e) {
-            System.err.println("Error searching tourists: " + e.getMessage());
-            return List.of();
         }
     }
 

@@ -15,13 +15,14 @@ public class GuideService {
                 guide.setGuideId(generateGuideId());
             }
 
-            List<Guide> guides = FileDataManager.getAllGuides();
-            guides.add(guide);
+            // Delegate to FileDataManager's saveGuide, which handles both add/update logic
+            boolean saved = FileDataManager.saveGuide(guide);
 
-            FileDataManager.saveGuides(guides);
-            FileDataManager.logActivity("SYSTEM", "Guide registered: " + guide.getFullName());
+            if (saved) {
+                FileDataManager.logActivity("SYSTEM", "Guide registered: " + guide.getFullName());
+            }
 
-            return true;
+            return saved;
 
         } catch (Exception e) {
             System.err.println("Error registering guide: " + e.getMessage());
@@ -32,36 +33,36 @@ public class GuideService {
 
     public boolean updateGuide(Guide guide) {
         try {
-            List<Guide> guides = FileDataManager.getAllGuides();
-            guides.removeIf(g -> guide.getGuideId().equals(g.getGuideId()));
-            guides.add(guide);
+            // Delegate to FileDataManager's saveGuide, which handles both add/update logic
+            boolean updated = FileDataManager.saveGuide(guide);
 
-            FileDataManager.saveGuides(guides);
-            FileDataManager.logActivity("SYSTEM", "Guide updated: " + guide.getGuideId());
+            if (updated) {
+                FileDataManager.logActivity("SYSTEM", "Guide updated: " + guide.getGuideId());
+            }
 
-            return true;
+            return updated;
 
         } catch (Exception e) {
             System.err.println("Error updating guide: " + e.getMessage());
+            FileDataManager.logActivity("SYSTEM", "Guide update error: " + e.getMessage());
             return false;
         }
     }
 
     public boolean deleteGuide(String guideId) {
         try {
-            List<Guide> guides = FileDataManager.getAllGuides();
-            boolean removed = guides.removeIf(g -> guideId.equals(g.getGuideId()));
+            // Delegate directly to FileDataManager's deleteGuide method
+            boolean deleted = FileDataManager.deleteGuide(guideId);
 
-            if (removed) {
-                FileDataManager.saveGuides(guides);
+            if (deleted) {
                 FileDataManager.logActivity("SYSTEM", "Guide deleted: " + guideId);
-                return true;
             }
 
-            return false;
+            return deleted;
 
         } catch (Exception e) {
             System.err.println("Error deleting guide: " + e.getMessage());
+            FileDataManager.logActivity("SYSTEM", "Guide deletion error: " + e.getMessage());
             return false;
         }
     }
@@ -111,7 +112,7 @@ public class GuideService {
             Guide guide = FileDataManager.findGuideById(guideId);
             if (guide != null) {
                 guide.setActive(false);
-                return updateGuide(guide);
+                return updateGuide(guide); // Use the service's own update method
             }
             return false;
 

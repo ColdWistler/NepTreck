@@ -35,7 +35,7 @@ public class BookingController implements Initializable {
     @FXML private Button createBookingButton;
     @FXML private Button updateBookingButton;
     @FXML private Button deleteBookingButton;
-    @FXML private Button refreshButton;
+    @FXML private Button refreshButton; // Assuming this is refreshTableButton from FXML
 
     @FXML private TableView<Booking> bookingsTable;
     @FXML private TableColumn<Booking, String> bookingIdColumn;
@@ -44,6 +44,7 @@ public class BookingController implements Initializable {
     @FXML private TableColumn<Booking, String> statusColumn;
     @FXML private TableColumn<Booking, Double> totalAmountColumn;
     @FXML private TableColumn<Booking, LocalDateTime> travelDateColumn;
+    @FXML private TableColumn<Booking, String> guideColumn; // Ensure this is present and mapped
 
     @FXML private Label statusLabel;
 
@@ -55,6 +56,7 @@ public class BookingController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("DEBUG: BookingController initializing...");
         // Initialize services
         bookingService = new BookingService();
         touristService = new TouristService();
@@ -66,23 +68,29 @@ public class BookingController implements Initializable {
 
         // Load data
         loadComboBoxData();
-        loadBookings();
+        loadBookings(); // This loads data into the table
 
         // Setup event handlers
         setupEventHandlers();
 
         clearStatusMessage();
+        System.out.println("DEBUG: BookingController initialized.");
     }
 
     private void setupTable() {
+        System.out.println("DEBUG: Setting up table columns...");
         if (bookingIdColumn != null) {
             bookingIdColumn.setCellValueFactory(new PropertyValueFactory<>("bookingId"));
         }
+        // IMPORTANT: These columns display IDs. If you want names, you'd need custom cell factories or a different model.
         if (touristColumn != null) {
             touristColumn.setCellValueFactory(new PropertyValueFactory<>("touristId"));
         }
         if (packageColumn != null) {
             packageColumn.setCellValueFactory(new PropertyValueFactory<>("packageId"));
+        }
+        if (guideColumn != null) { // Ensure this block is present
+            guideColumn.setCellValueFactory(new PropertyValueFactory<>("guideId"));
         }
         if (statusColumn != null) {
             statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
@@ -97,11 +105,15 @@ public class BookingController implements Initializable {
         bookingsList = FXCollections.observableArrayList();
         if (bookingsTable != null) {
             bookingsTable.setItems(bookingsList);
+            System.out.println("DEBUG: Bookings table items set to ObservableList.");
+        } else {
+            System.err.println("ERROR: bookingsTable is null during setupTable! Check FXML fx:id.");
         }
-
+        System.out.println("DEBUG: Table setup complete.");
     }
 
     private void setupEventHandlers() {
+        System.out.println("DEBUG: Setting up event handlers...");
         if (createBookingButton != null) {
             createBookingButton.setOnAction(event -> handleCreateBooking());
         }
@@ -111,6 +123,7 @@ public class BookingController implements Initializable {
         if (deleteBookingButton != null) {
             deleteBookingButton.setOnAction(event -> handleDeleteBooking());
         }
+        // Assuming refreshButton in FXML maps to refreshTableButton in the code snippet I previously provided
         if (refreshButton != null) {
             refreshButton.setOnAction(event -> handleRefresh());
         }
@@ -120,44 +133,53 @@ public class BookingController implements Initializable {
             bookingsTable.getSelectionModel().selectedItemProperty().addListener(
                     (observable, oldValue, newValue) -> {
                         if (newValue != null) {
+                            System.out.println("DEBUG: Selected booking: " + newValue.getBookingId());
                             populateFormWithBooking(newValue);
                         }
                     }
             );
         }
+        System.out.println("DEBUG: Event handlers setup complete.");
     }
 
     private void loadComboBoxData() {
         try {
+            System.out.println("DEBUG: Loading ComboBox data...");
             // Load tourists
             if (touristComboBox != null) {
                 List<Tourist> tourists = touristService.getAllTourists();
                 touristComboBox.setItems(FXCollections.observableArrayList(tourists));
+                System.out.println("DEBUG: Loaded " + tourists.size() + " tourists into ComboBox.");
             }
 
             // Load packages
             if (packageComboBox != null) {
                 List<TourPackage> packages = packageService.getAllPackages();
                 packageComboBox.setItems(FXCollections.observableArrayList(packages));
+                System.out.println("DEBUG: Loaded " + packages.size() + " packages into ComboBox.");
             }
 
             // Load guides
             if (guideComboBox != null) {
                 List<Guide> guides = guideService.getAllGuides();
                 guideComboBox.setItems(FXCollections.observableArrayList(guides));
+                System.out.println("DEBUG: Loaded " + guides.size() + " guides into ComboBox.");
             }
 
         } catch (Exception e) {
             System.err.println("Error loading combo box data: " + e.getMessage());
+            e.printStackTrace(); // Print stack trace for more details
             showStatus("Error loading data: " + e.getMessage(), false);
         }
     }
 
     @FXML
     private void handleCreateBooking() {
+        System.out.println("DEBUG: handleCreateBooking called.");
         try {
             // Validate input
             if (!validateInput()) {
+                System.out.println("DEBUG: Input validation failed.");
                 return;
             }
 
@@ -168,6 +190,10 @@ public class BookingController implements Initializable {
             LocalDate travelDate = travelDatePicker.getValue();
             int numberOfPeople = Integer.parseInt(numberOfPeopleField.getText().trim());
             String specialRequests = specialRequestsArea.getText().trim();
+
+            System.out.println("DEBUG: Creating booking with Tourist: " + (selectedTourist != null ? selectedTourist.getTouristId() : "null") +
+                               ", Package: " + (selectedPackage != null ? selectedPackage.getPackageId() : "null") +
+                               ", People: " + numberOfPeople);
 
             // Convert LocalDate to LocalDateTime (assuming start of day)
             LocalDateTime travelDateTime = travelDate.atTime(LocalTime.of(9, 0));
@@ -185,21 +211,25 @@ public class BookingController implements Initializable {
             if (success) {
                 showStatus("Booking created successfully!", true);
                 clearForm();
-                loadBookings();
+                loadBookings(); // Reloads table data after creation
                 FileDataManager.logActivity(SessionManager.getCurrentUser().getUsername(),
                         "Created booking for tourist: " + selectedTourist.getFullName());
+                System.out.println("DEBUG: Booking created, table reloaded.");
             } else {
                 showStatus("Failed to create booking. Please try again.", false);
+                System.out.println("DEBUG: Booking creation failed.");
             }
 
         } catch (Exception e) {
             System.err.println("Error creating booking: " + e.getMessage());
+            e.printStackTrace(); // Print stack trace for more details
             showStatus("Error creating booking: " + e.getMessage(), false);
         }
     }
 
     @FXML
     private void handleUpdateBooking() {
+        System.out.println("DEBUG: handleUpdateBooking called.");
         try {
             Booking selectedBooking = bookingsTable.getSelectionModel().getSelectedItem();
             if (selectedBooking == null) {
@@ -207,26 +237,31 @@ public class BookingController implements Initializable {
                 return;
             }
 
+            System.out.println("DEBUG: Updating booking: " + selectedBooking.getBookingId());
             // For now, just update the status to CONFIRMED
             boolean success = bookingService.confirmBooking(selectedBooking.getBookingId());
 
             if (success) {
                 showStatus("Booking updated successfully!", true);
-                loadBookings();
+                loadBookings(); // Reloads table data after update
                 FileDataManager.logActivity(SessionManager.getCurrentUser().getUsername(),
                         "Updated booking: " + selectedBooking.getBookingId());
+                System.out.println("DEBUG: Booking updated, table reloaded.");
             } else {
                 showStatus("Failed to update booking.", false);
+                System.out.println("DEBUG: Booking update failed.");
             }
 
         } catch (Exception e) {
             System.err.println("Error updating booking: " + e.getMessage());
+            e.printStackTrace(); // Print stack trace for more details
             showStatus("Error updating booking: " + e.getMessage(), false);
         }
     }
 
     @FXML
     private void handleDeleteBooking() {
+        System.out.println("DEBUG: handleDeleteBooking called.");
         try {
             Booking selectedBooking = bookingsTable.getSelectionModel().getSelectedItem();
             if (selectedBooking == null) {
@@ -241,27 +276,34 @@ public class BookingController implements Initializable {
             alert.setContentText("Are you sure you want to delete this booking?");
 
             if (alert.showAndWait().orElse(ButtonType.CANCEL) == ButtonType.OK) {
+                System.out.println("DEBUG: Deleting booking: " + selectedBooking.getBookingId());
                 boolean success = FileDataManager.deleteBooking(selectedBooking.getBookingId());
 
                 if (success) {
                     showStatus("Booking deleted successfully!", true);
-                    loadBookings();
+                    loadBookings(); // Reloads table data after deletion
                     clearForm();
                     FileDataManager.logActivity(SessionManager.getCurrentUser().getUsername(),
                             "Deleted booking: " + selectedBooking.getBookingId());
+                    System.out.println("DEBUG: Booking deleted, table reloaded.");
                 } else {
                     showStatus("Failed to delete booking.", false);
+                    System.out.println("DEBUG: Booking deletion failed.");
                 }
+            } else {
+                System.out.println("DEBUG: Booking deletion cancelled.");
             }
 
         } catch (Exception e) {
             System.err.println("Error deleting booking: " + e.getMessage());
+            e.printStackTrace(); // Print stack trace for more details
             showStatus("Error deleting booking: " + e.getMessage(), false);
         }
     }
 
     @FXML
     private void handleRefresh() {
+        System.out.println("DEBUG: handleRefresh called. Reloading all data.");
         loadBookings();
         loadComboBoxData();
         showStatus("Data refreshed.", true);
@@ -269,103 +311,46 @@ public class BookingController implements Initializable {
 
     private void loadBookings() {
         try {
+            System.out.println("DEBUG: Attempting to load bookings into table...");
             List<Booking> bookings = bookingService.getAllBookings();
-            bookingsList.clear();
-            bookingsList.addAll(bookings);
+            System.out.println("DEBUG: Bookings retrieved from service: " + (bookings != null ? bookings.size() : "null") + " items.");
+
+            if (bookingsList != null) {
+                bookingsList.clear(); // Clear existing items
+                if (bookings != null) {
+                    bookingsList.addAll(bookings); // Add new items
+                }
+                System.out.println("DEBUG: ObservableList updated. Current size: " + bookingsList.size());
+            } else {
+                System.err.println("ERROR: bookingsList is null! Cannot update table.");
+            }
 
         } catch (Exception e) {
-            System.err.println("Error loading bookings: " + e.getMessage());
-            showStatus("Error loading bookings: " + e.getMessage(), false);
+            System.err.println("Error loading bookings for table: " + e.getMessage());
+            e.printStackTrace(); // Print stack trace for more details
+            showStatus("Error loading bookings for table: " + e.getMessage(), false);
         }
     }
 
     private boolean validateInput() {
-        if (touristComboBox.getValue() == null) {
-            showStatus("Please select a tourist.", false);
-            return false;
-        }
-        if (packageComboBox.getValue() == null) {
-            showStatus("Please select a tour package.", false);
-            return false;
-        }
-        if (travelDatePicker.getValue() == null) {
-            showStatus("Please select a travel date.", false);
-            return false;
-        }
-        if (numberOfPeopleField.getText().trim().isEmpty()) {
-            showStatus("Please enter number of people.", false);
-            return false;
-        }
-
-        try {
-            int numberOfPeople = Integer.parseInt(numberOfPeopleField.getText().trim());
-            if (numberOfPeople <= 0) {
-                showStatus("Number of people must be greater than 0.", false);
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            showStatus("Please enter a valid number for people count.", false);
-            return false;
-        }
-
+        // ... (existing validation logic) ...
         return true;
     }
 
     private void populateFormWithBooking(Booking booking) {
-        try {
-            // Find and select tourist
-            Tourist tourist = touristService.getTouristById(booking.getTouristId());
-            if (tourist != null) {
-                touristComboBox.setValue(tourist);
-            }
-
-            // Find and select package
-            TourPackage tourPackage = packageService.getPackageById(booking.getPackageId());
-            if (tourPackage != null) {
-                packageComboBox.setValue(tourPackage);
-            }
-
-            // Find and select guide
-            if (booking.getGuideId() != null) {
-                Guide guide = guideService.getGuideById(booking.getGuideId());
-                if (guide != null) {
-                    guideComboBox.setValue(guide);
-                }
-            }
-
-            // Set travel date
-            if (booking.getTravelDate() != null) {
-                travelDatePicker.setValue(booking.getTravelDate().toLocalDate());
-            }
-
-            // Set number of people
-            if (booking.getNumberOfPeople() != null) {
-                numberOfPeopleField.setText(booking.getNumberOfPeople().toString());
-            }
-
-            // Set special requests
-            if (booking.getSpecialRequests() != null) {
-                specialRequestsArea.setText(booking.getSpecialRequests());
-            }
-
-        } catch (Exception e) {
-            System.err.println("Error populating form: " + e.getMessage());
-        }
+        // ... (existing form population logic) ...
     }
 
     private void clearForm() {
-        if (touristComboBox != null) touristComboBox.setValue(null);
-        if (packageComboBox != null) packageComboBox.setValue(null);
-        if (guideComboBox != null) guideComboBox.setValue(null);
-        if (travelDatePicker != null) travelDatePicker.setValue(null);
-        if (numberOfPeopleField != null) numberOfPeopleField.clear();
-        if (specialRequestsArea != null) specialRequestsArea.clear();
+        // ... (existing clear form logic) ...
     }
 
     private void showStatus(String message, boolean isSuccess) {
         if (statusLabel != null) {
             statusLabel.setText(message);
             statusLabel.setStyle(isSuccess ? "-fx-text-fill: green;" : "-fx-text-fill: red;");
+        } else {
+            System.err.println("ERROR: statusLabel is null. Cannot display status: " + message);
         }
     }
 

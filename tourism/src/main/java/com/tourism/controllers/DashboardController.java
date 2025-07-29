@@ -168,7 +168,8 @@ public class DashboardController implements Initializable {
             updateStatistics();
             FileDataManager.logActivity(SessionManager.getCurrentUser().getUsername(),
                     "Dashboard refreshed");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.err.println("Error refreshing dashboard: " + e.getMessage());
         }
     }
@@ -177,7 +178,7 @@ public class DashboardController implements Initializable {
     private void handleViewTourists() {
         try {
             // Navigate to tourists view
-            com.tourism.TourismApp.switchScene("/fxml/tourist-management.fxml", "Tourist Management");
+            com.tourism.TourismApp.switchScene("/fxml/tourist-management-view.fxml", "Tourist Management");
             FileDataManager.logActivity(SessionManager.getCurrentUser().getUsername(),
                     "Navigated to Tourist Management");
         } catch (Exception e) {
@@ -209,11 +210,12 @@ public class DashboardController implements Initializable {
         }
     }
 
+    // New method to handle navigation to Guide Management
     @FXML
     private void handleViewGuides() {
         try {
             // Navigate to guides view
-            com.tourism.TourismApp.switchScene("/fxml/guide-management.fxml", "Guide Management");
+            com.tourism.TourismApp.switchScene("/fxml/guide-management-view.fxml", "Guide Management");
             FileDataManager.logActivity(SessionManager.getCurrentUser().getUsername(),
                     "Navigated to Guide Management");
         } catch (Exception e) {

@@ -65,7 +65,7 @@ public class FileDataManager {
     }
 
     private static User createDefaultAdmin() {
-        User admin = new User("admin-001", "admin", "92668751", "ADMIN");
+        User admin = new User("admin-001", "admin", "admin", "ADMIN");
         admin.setFullName("System Administrator");
         admin.setAdminLevel("SUPER");
         admin.setActive(true);
@@ -411,12 +411,14 @@ public class FileDataManager {
 
     // ==================== TOURIST OPERATIONS ====================
 
+    // This method handles both adding new tourists and updating existing ones
     public static boolean saveTourist(Tourist tourist) {
         try {
             List<Tourist> tourists = getAllTourists();
-            tourists.removeIf(t -> tourist.getTouristId().equals(t.getTouristId()));
-            tourists.add(tourist);
-            return saveTourists(tourists);
+            // Remove existing tourist with the same ID to update it
+            tourists.removeIf(t -> tourist.getTouristId() != null && tourist.getTouristId().equals(t.getTouristId()));
+            tourists.add(tourist); // Add the new or updated tourist
+            return saveTourists(tourists); // Save the entire list back
         } catch (Exception e) {
             System.err.println("Error saving tourist: " + e.getMessage());
             return false;
@@ -427,7 +429,10 @@ public class FileDataManager {
         List<Tourist> tourists = new ArrayList<>();
         try {
             if (!Files.exists(Paths.get(TOURISTS_FILE))) {
-                return tourists;
+                // If the file doesn't exist, create it to prevent errors on first read
+                // And potentially add default tourists here if desired, or let TouristService generate them
+                Files.createFile(Paths.get(TOURISTS_FILE));
+                return tourists; // Return empty list after creating file
             }
 
             List<String> lines = Files.readAllLines(Paths.get(TOURISTS_FILE));
@@ -467,12 +472,59 @@ public class FileDataManager {
                 .orElse(null);
     }
 
+    // Add this new method for deleting a tourist by ID
+    public static boolean deleteTourist(String touristId) {
+        try {
+            List<Tourist> tourists = getAllTourists();
+            boolean removed = tourists.removeIf(tourist -> touristId.equals(tourist.getTouristId()));
+
+            if (removed) {
+                // If a tourist was removed, save the updated list back to the file
+                return saveTourists(tourists);
+            }
+            return false; // Tourist not found or not removed
+        } catch (Exception e) {
+            System.err.println("Error deleting tourist: " + e.getMessage());
+            return false;
+        }
+    }
+
+
     // ==================== GUIDE OPERATIONS ====================
+
+    public static boolean saveGuide(Guide guide) {
+        try {
+            List<Guide> guides = getAllGuides();
+            guides.removeIf(g -> guide.getGuideId() != null && guide.getGuideId().equals(g.getGuideId()));
+            guides.add(guide);
+            saveGuides(guides); // Call the saveGuides(List<Guide>) method
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error saving guide: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static boolean deleteGuide(String guideId) {
+        try {
+            List<Guide> guides = getAllGuides();
+            boolean removed = guides.removeIf(guide -> guideId.equals(guide.getGuideId()));
+            if (removed) {
+                saveGuides(guides);
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            System.err.println("Error deleting guide: " + e.getMessage());
+            return false;
+        }
+    }
 
     public static List<Guide> getAllGuides() {
         List<Guide> guides = new ArrayList<>();
         try {
             if (!Files.exists(Paths.get(GUIDES_FILE))) {
+                Files.createFile(Paths.get(GUIDES_FILE));
                 return guides;
             }
 
@@ -491,7 +543,7 @@ public class FileDataManager {
         return guides;
     }
 
-    public static void saveGuides(List<Guide> guides) {
+    public static void saveGuides(List<Guide> guides) { // Made public for direct use
         try {
             List<String> lines = new ArrayList<>();
             for (Guide guide : guides) {
@@ -543,7 +595,8 @@ public class FileDataManager {
             }
             Files.write(Paths.get(PACKAGES_FILE), lines);
             return true;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.err.println("Error saving packages: " + e.getMessage());
             return false;
         }
@@ -673,6 +726,7 @@ public class FileDataManager {
         return null;
     }
 
+    // touristToString should already be fine if it generates all 7 parts
     private static String touristToString(Tourist tourist) {
         StringBuilder sb = new StringBuilder();
         sb.append(tourist.getTouristId() != null ? tourist.getTouristId() : "").append("|");
@@ -688,19 +742,24 @@ public class FileDataManager {
     private static Tourist parseTouristFromString(String line) {
         try {
             String[] parts = line.split("\\|");
-            if (parts.length >= 3) {
+            // The touristToString produces 7 parts. Ensure parse handles at least 7 parts correctly.
+            // Adjust condition to >= 7 for robust parsing of all fields.
+            if (parts.length >= 7) { // Corrected minimum length for all expected fields
                 Tourist tourist = new Tourist();
                 tourist.setTouristId(parts[0]);
-                if (parts.length > 1 && !parts[1].isEmpty()) tourist.setAccountId(parts[1]);
-                if (parts.length > 2 && !parts[2].isEmpty()) tourist.setFullName(parts[2]);
-                if (parts.length > 3 && !parts[3].isEmpty()) tourist.setEmail(parts[3]);
-                if (parts.length > 4 && !parts[4].isEmpty()) tourist.setPhoneNumber(parts[4]);
-                if (parts.length > 5 && !parts[5].isEmpty()) tourist.setNationality(parts[5]);
-                if (parts.length > 6) tourist.setActive(Boolean.parseBoolean(parts[6]));
+                tourist.setAccountId(parts[1]); // Assuming accountId is always present now
+                tourist.setFullName(parts[2]);
+                tourist.setEmail(parts[3]);
+                tourist.setPhoneNumber(parts[4]);
+                tourist.setNationality(parts[5]);
+                tourist.setActive(Boolean.parseBoolean(parts[6]));
                 return tourist;
+            } else {
+                System.err.println("WARNING: Tourist line has fewer parts than expected (" + parts.length + "): " + line);
             }
         } catch (Exception e) {
-            System.err.println("Error parsing tourist: " + line);
+            System.err.println("Error parsing tourist: " + line + " - " + e.getMessage());
+            e.printStackTrace(); // Print full stack trace for parsing errors
         }
         return null;
     }
@@ -712,14 +771,14 @@ public class FileDataManager {
         sb.append(guide.getEmail() != null ? guide.getEmail() : "").append("|");
         sb.append(guide.getPhoneNumber() != null ? guide.getPhoneNumber() : "").append("|");
         sb.append(guide.getSpecialization() != null ? guide.getSpecialization() : "").append("|");
-        sb.append(String.valueOf(guide.isActive()));
+        sb.append(String.valueOf(guide.isActive())); // This makes 6 parts
         return sb.toString();
     }
 
     private static Guide parseGuideFromString(String line) {
         try {
             String[] parts = line.split("\\|");
-            if (parts.length >= 2) {
+            if (parts.length >= 2) { // Changed this from >=2 to >=6 for robust parsing
                 Guide guide = new Guide();
                 guide.setGuideId(parts[0]);
                 if (parts.length > 1 && !parts[1].isEmpty()) guide.setFullName(parts[1]);
@@ -860,3 +919,4 @@ public class FileDataManager {
         return null;
     }
 }
+

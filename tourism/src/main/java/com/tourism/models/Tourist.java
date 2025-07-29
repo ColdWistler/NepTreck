@@ -1,160 +1,77 @@
 package com.tourism.models;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Tourist {
     private String touristId;
-    private String accountId; // Added for FileDataManager compatibility
-    private String fullName;
-    private String email;
-    private String phoneNumber;
-    private String nationality;
-    private LocalDate dateOfBirth;
-    private String passportNumber;
-    private String address;
-    private boolean active;
-    private LocalDateTime registrationDate;
-    private String emergencyContact;
-    private String emergencyPhone;
+    private String accountId; // Corresponds to parts[1]
+    private String fullName;  // Corresponds to parts[2]
+    private String email;     // Corresponds to parts[3]
+    private String phoneNumber; // Corresponds to parts[4]
+    private String nationality; // Corresponds to parts[5]
+    private boolean active;     // Corresponds to parts[6]
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    // Constructors
+    // Default constructor
     public Tourist() {
-        this.active = true;
-        this.registrationDate = LocalDateTime.now();
-        this.accountId = generateAccountId();
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+        this.active = true; // Default to active
     }
 
-    public Tourist(String touristId, String fullName, String email, String phoneNumber, String nationality) {
+    // Constructor matching the arguments from TouristController's handleCreateTourist
+    // (touristId, accountId, fullName, email, phoneNumber, nationality)
+    // Note: The 'accountId' can be null initially, or generated.
+    public Tourist(String touristId, String accountId, String fullName, String email, String phoneNumber, String nationality) {
+        this(); // Call default constructor for createdAt, updatedAt, active
         this.touristId = touristId;
+        this.accountId = accountId;
         this.fullName = fullName;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.nationality = nationality;
-        this.active = true;
-        this.registrationDate = LocalDateTime.now();
-        this.accountId = generateAccountId();
     }
 
-    // Generate unique account ID
-    private String generateAccountId() {
-        return "ACC_" + System.currentTimeMillis() + "_" + (int)(Math.random() * 1000);
-    }
+    // Constructor used by parseTouristFromString in FileDataManager (fewer initial arguments)
+    // You might also use this or the default constructor in parseTouristFromString
+    // if you assign properties one by one.
 
     // Getters and Setters
-    public String getTouristId() {
-        return touristId;
-    }
+    public String getTouristId() { return touristId; }
+    public void setTouristId(String touristId) { this.touristId = touristId; }
 
-    public void setTouristId(String touristId) {
-        this.touristId = touristId;
-    }
+    public String getAccountId() { return accountId; }
+    public void setAccountId(String accountId) { this.accountId = accountId; }
 
-    public String getAccountId() {
-        return accountId;
-    }
+    public String getFullName() { return fullName; }
+    public void setFullName(String fullName) { this.fullName = fullName; }
 
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public String getFullName() {
-        return fullName;
-    }
+    public String getPhoneNumber() { return phoneNumber; }
+    public void setPhoneNumber(String phoneNumber) { this.phoneNumber = phoneNumber; }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
+    public String getNationality() { return nationality; }
+    public void setNationality(String nationality) { this.nationality = nationality; }
 
-    public String getEmail() {
-        return email;
-    }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getPassportNumber() {
-        return passportNumber;
-    }
-
-    public void setPassportNumber(String passportNumber) {
-        this.passportNumber = passportNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public LocalDateTime getRegistrationDate() {
-        return registrationDate;
-    }
-
-    public void setRegistrationDate(LocalDateTime registrationDate) {
-        this.registrationDate = registrationDate;
-    }
-
-    public String getEmergencyContact() {
-        return emergencyContact;
-    }
-
-    public void setEmergencyContact(String emergencyContact) {
-        this.emergencyContact = emergencyContact;
-    }
-
-    public String getEmergencyPhone() {
-        return emergencyPhone;
-    }
-
-    public void setEmergencyPhone(String emergencyPhone) {
-        this.emergencyPhone = emergencyPhone;
-    }
+    public LocalDateTime getUpdatedAt() { return updatedAt; }
+    public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
 
     @Override
     public String toString() {
         return "Tourist{" +
-                "touristId='" + touristId + '\'' +
-                ", accountId='" + accountId + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
-                ", nationality='" + nationality + '\'' +
-                ", active=" + active +
-                '}';
+               "touristId='" + touristId + '\'' +
+               ", fullName='" + fullName + '\'' +
+               ", email='" + email + '\'' +
+               ", active=" + active +
+               '}';
     }
 }
