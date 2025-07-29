@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tourism.controllers.StaffController">
+    <top>
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header">
+            <children>
+                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="header-logo" />
+                <Label styleClass="header-title" text="VisiNepalTech">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="Staff Panel" styleClass="header-subtitle" />
+                <Button fx:id="staffLogoutButton" mnemonicParsing="false" styleClass="logout-button" text="Logout" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="30.0" styleClass="staff-main-content">
+            <children>
+                <!-- Welcome Section -->
+                <VBox alignment="CENTER" spacing="15.0" styleClass="welcome-section">
+                    <children>
+                        <!-- Staff welcome image placeholder -->
+                        <ImageView fitHeight="120.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" styleClass="welcome-image">
+                            <!-- Add staff welcome image here -->
+                        </ImageView>
+                        <Label fx:id="staffWelcomeLabel" styleClass="staff-welcome-label" text="Welcome, Staff Member">
+                            <font>
+                                <Font name="System Bold" size="24.0" />
+                            </font>
+                        </Label>
+                        <Label styleClass="staff-subtitle" text="Tourism Management System - Staff Portal" />
+                    </children>
+                </VBox>
+
+                <!-- Quick Actions Grid -->
+                <VBox spacing="20.0" styleClass="quick-actions-section">
+                    <children>
+                        <Label styleClass="section-title" text="Quick Actions">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+
+                        <GridPane hgap="20.0" vgap="20.0" styleClass="actions-grid">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            </rowConstraints>
+                            <children>
+                                <!-- New Booking -->
+                                <VBox alignment="CENTER" spacing="15.0" styleClass="action-card" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                    <children>
+                                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" styleClass="action-icon">
+                                            <!-- Add booking icon here -->
+                                        </ImageView>
+                                        <Label styleClass="action-title" text="New Booking">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Button fx:id="newBookingButton" mnemonicParsing="false" styleClass="action-button" text="Create Booking" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+
+                                <!-- Register Guide -->
+                                <VBox alignment="CENTER" spacing="15.0" styleClass="action-card" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                    <children>
+                                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" styleClass="action-icon">
+                                            <!-- Add guide icon here -->
+                                        </ImageView>
+                                        <Label styleClass="action-title" text="Register Guide">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Button fx:id="registerGuideButton" mnemonicParsing="false" styleClass="action-button" text="Add Guide" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+
+                                <!-- View Reports -->
+                                <VBox alignment="CENTER" spacing="15.0" styleClass="action-card" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                    <children>
+                                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" styleClass="action-icon">
+                                            <!-- Add reports icon here -->
+                                        </ImageView>
+                                        <Label styleClass="action-title" text="View Reports">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Button fx:id="viewReportsButton" mnemonicParsing="false" styleClass="action-button" text="Open Reports" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+
+                                <!-- Manage Tourists -->
+                                <VBox alignment="CENTER" spacing="15.0" styleClass="action-card" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                    <children>
+                                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" styleClass="action-icon">
+                                            <!-- Add tourist management icon here -->
+                                        </ImageView>
+                                        <Label styleClass="action-title" text="Manage Tourists">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Button fx:id="manageTouristsButton" mnemonicParsing="false" styleClass="action-button" text="View Tourists" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+
+                                <!-- Emergency Contacts -->
+                                <VBox alignment="CENTER" spacing="15.0" styleClass="action-card" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <children>
+                                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" styleClass="action-icon">
+                                            <!-- Add emergency icon here -->
+                                        </ImageView>
+                                        <Label styleClass="action-title" text="Emergency Contacts">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Button fx:id="emergencyContactsButton" mnemonicParsing="false" styleClass="action-button" text="View Contacts" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+
+                                <!-- Settings -->
+                                <VBox alignment="CENTER" spacing="15.0" styleClass="action-card" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                    <children>
+                                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" styleClass="action-icon">
+                                            <!-- Add settings icon here -->
+                                        </ImageView>
+                                        <Label styleClass="action-title" text="Settings">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+                                        <Button fx:id="settingsButton" mnemonicParsing="false" styleClass="action-button" text="Open Settings" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+
+                <!-- Recent Activity Section -->
+                <VBox spacing="15.0" styleClass="recent-activity-section">
+                    <children>
+                        <Label styleClass="section-title" text="Recent Activity">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+
+                        <TableView fx:id="recentActivityTable" prefHeight="200.0" styleClass="activity-table">
+                            <columns>
+                                <TableColumn prefWidth="100.0" text="Time" />
+                                <TableColumn prefWidth="150.0" text="Action" />
+                                <TableColumn prefWidth="200.0" text="Details" />
+                                <TableColumn prefWidth="100.0" text="Status" />
+                            </columns>
+                        </TableView>
+                    </children>
+                </VBox>
+
+                <!-- Cultural Footer -->
+                <HBox alignment="CENTER" spacing="20.0" styleClass="cultural-footer">
+                    <children>
+                        <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" styleClass="cultural-icon">
+                            <!-- Add Nepali cultural symbol here -->
+                        </ImageView>
+                        <Label styleClass="cultural-text" text="नमस्ते - Welcome to Nepal Tourism" />
+                        <ImageView fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" styleClass="cultural-icon">
+                            <!-- Add another Nepali cultural symbol here -->
+                        </ImageView>
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+            </padding>
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tourism.controllers.BookingController">
+    <top>
+        <!-- Header for Booking Management -->
+        <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header">
+            <children>
+                <Label styleClass="header-title" text="VisiNepalTech">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label styleClass="form-header" text="Booking Management">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+        </HBox>
+    </top>
+
+    <center>
+        <HBox spacing="20.0" alignment="TOP_LEFT" styleClass="main-content-area">
+            <!-- Left Pane: Form for Create/Update -->
+            <VBox spacing="15.0" prefWidth="400.0" styleClass="form-section">
+                <padding>
+                    <!-- Corrected Insets: Explicitly defined top, right, bottom, left -->
+                    <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+                </padding>
+                <children>
+                    <Label styleClass="section-title" text="Booking Details">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+
+                    <Label text="Tourist:" styleClass="form-label" />
+                    <ComboBox fx:id="touristComboBox" promptText="Select Tourist" prefWidth="Infinity" styleClass="form-combo" />
+
+                    <Label text="Tour Package:" styleClass="form-label" />
+                    <ComboBox fx:id="packageComboBox" promptText="Select Package" prefWidth="Infinity" styleClass="form-combo" />
+
+                    <Label text="Guide (Optional):" styleClass="form-label" />
+                    <ComboBox fx:id="guideComboBox" promptText="Select Guide" prefWidth="Infinity" styleClass="form-combo" />
+
+                    <Label text="Travel Date:" styleClass="form-label" />
+                    <DatePicker fx:id="travelDatePicker" promptText="Select Date" prefWidth="Infinity" styleClass="form-datepicker" />
+
+                    <Label text="Number of People:" styleClass="form-label" />
+                    <TextField fx:id="numberOfPeopleField" promptText="Enter number of people" styleClass="form-input" />
+
+                    <Label text="Special Requests:" styleClass="form-label" />
+                    <TextArea fx:id="specialRequestsArea" promptText="Any special requests..." prefRowCount="3" styleClass="form-textarea" />
+
+                    <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                        <children>
+                            <Button fx:id="createBookingButton" text="Create Booking" styleClass="primary-button" onAction="#handleCreateBooking" />
+                            <Button fx:id="updateBookingButton" text="Update Selected" styleClass="secondary-button" onAction="#handleUpdateBooking" />
+                        </children>
+                    </HBox>
+
+                    <Label fx:id="statusLabel" text="" styleClass="status-label" />
+                </children>
+            </VBox>
+
+            <!-- Right Pane: Booking Table -->
+            <VBox spacing="10.0" HBox.hgrow="ALWAYS" styleClass="table-section">
+                <padding>
+                    <!-- Corrected Insets: Explicitly defined top, right, bottom, left -->
+                    <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+                </padding>
+                <children>
+                    <Label styleClass="section-title" text="All Bookings">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+
+                    <TableView fx:id="bookingsTable" VBox.vgrow="ALWAYS" styleClass="data-table">
+                        <columns>
+                            <TableColumn fx:id="bookingIdColumn" prefWidth="100.0" text="Booking ID" />
+                            <TableColumn fx:id="touristColumn" prefWidth="120.0" text="Tourist" />
+                            <TableColumn fx:id="packageColumn" prefWidth="120.0" text="Package" />
+                            <TableColumn fx:id="guideColumn" prefWidth="100.0" text="Guide" />
+                            <TableColumn fx:id="travelDateColumn" prefWidth="120.0" text="Travel Date" />
+                            <TableColumn fx:id="statusColumn" prefWidth="100.0" text="Status" />
+                            <TableColumn fx:id="totalAmountColumn" prefWidth="100.0" text="Amount" />
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                    </TableView>
+
+                    <HBox spacing="10.0" alignment="CENTER_LEFT">
+                        <children>
+                            <Button fx:id="refreshButton" text="Refresh Data" styleClass="tertiary-button" onAction="#handleRefresh" />
+                            <Button fx:id="deleteBookingButton" text="Delete Selected" styleClass="delete-button" onAction="#handleDeleteBooking" />
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

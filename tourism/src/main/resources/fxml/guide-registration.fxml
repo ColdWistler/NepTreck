@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tourism.controllers.GuideController">
+    <top>
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header">
+            <children>
+                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="header-logo" />
+                <Label styleClass="header-title" text="VisiNepalTech">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label styleClass="form-header" text="Guide">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+        </HBox>
+    </top>
+
+    <center>
+        <HBox spacing="20.0" styleClass="guide-container">
+            <children>
+                <!-- Left Panel - Registered Tours -->
+                <VBox prefWidth="300.0" spacing="15.0" styleClass="left-panel">
+                    <children>
+                        <!-- Guide Image Placeholder -->
+                        <VBox alignment="CENTER" spacing="10.0" styleClass="guide-image-container">
+                            <children>
+                                <ImageView fitHeight="150.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" styleClass="guide-image">
+                                    <!-- Add guide/tourism image here -->
+                                </ImageView>
+                            </children>
+                        </VBox>
+
+                        <Label styleClass="section-title" text="Registered Tours">
+                            <font>
+                                <Font name="System Bold" size="16.0" />
+                            </font>
+                        </Label>
+
+                        <!-- Registered Tours List -->
+                        <VBox spacing="10.0" styleClass="registered-tours">
+                            <children>
+                                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="tour-item">
+                                    <children>
+                                        <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" styleClass="tour-thumbnail">
+                                            <!-- Add tour thumbnail here -->
+                                        </ImageView>
+                                        <VBox spacing="5.0">
+                                            <children>
+                                                <Label styleClass="tour-title" text="Mountain Trek Guide" />
+                                                <Label styleClass="tour-duration" text="5+ years experience" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <HBox alignment="CENTER_LEFT" spacing="10.0" styleClass="tour-item">
+                                    <children>
+                                        <ImageView fitHeight="60.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" styleClass="tour-thumbnail">
+                                            <!-- Add tour thumbnail here -->
+                                        </ImageView>
+                                        <VBox spacing="5.0">
+                                            <children>
+                                                <Label styleClass="tour-title" text="Cultural Guide" />
+                                                <Label styleClass="tour-duration" text="3+ years experience" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                        <Region VBox.vgrow="ALWAYS" />
+
+                        <Label styleClass="powered-by" text="Powered by VisiNepalTech" />
+                    </children>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                </VBox>
+
+                <!-- Right Panel - Guide Registration Form -->
+                <VBox prefWidth="500.0" spacing="20.0" styleClass="form-panel">
+                    <children>
+                        <Label styleClass="form-title" text="Register Guide">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+
+                        <ScrollPane fitToWidth="true" styleClass="form-scroll">
+                            <content>
+                                <VBox spacing="15.0" styleClass="form-content">
+                                    <children>
+                                        <!-- Name Section -->
+                                        <VBox spacing="5.0">
+                                            <children>
+                                                <Label styleClass="form-label" text="Name" />
+                                                <TextField fx:id="guideNameField" promptText="Guide Full Name" styleClass="form-input" />
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Details Section -->
+                                        <Label styleClass="section-header" text="Details">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <TextField fx:id="guideContactField" promptText="Contact" styleClass="form-input" />
+                                                <ComboBox fx:id="guideCountryComboBox" promptText="Country" styleClass="form-combo" />
+                                                <TextArea fx:id="guideAddressArea" prefRowCount="3" promptText="Address" styleClass="form-textarea" />
+                                                <HBox spacing="10.0">
+                                                    <children>
+                                                        <TextField promptText="Age" styleClass="form-input-small" />
+                                                        <Button styleClass="contact-button" text="Emergency Contact" />
+                                                        <Button styleClass="contact-button" text="Gender" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Languages Section -->
+                                        <Label styleClass="section-header" text="Languages">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <HBox spacing="10.0">
+                                                    <children>
+                                                        <TextField fx:id="language1Field" promptText="Language 1" styleClass="form-input" />
+                                                        <ComboBox promptText="Proficiency" styleClass="form-combo-small" />
+                                                    </children>
+                                                </HBox>
+                                                <HBox spacing="10.0">
+                                                    <children>
+                                                        <TextField fx:id="language2Field" promptText="Language 2" styleClass="form-input" />
+                                                        <ComboBox promptText="Proficiency" styleClass="form-combo-small" />
+                                                    </children>
+                                                </HBox>
+                                                <HBox spacing="10.0">
+                                                    <children>
+                                                        <TextField fx:id="language3Field" promptText="Language 3" styleClass="form-input" />
+                                                        <ComboBox promptText="Proficiency" styleClass="form-combo-small" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Experience Section -->
+                                        <Label styleClass="section-header" text="Experience">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+
+                                        <VBox spacing="8.0">
+                                            <children>
+                                                <HBox spacing="20.0">
+                                                    <children>
+                                                        <RadioButton fx:id="experience3Radio" styleClass="form-radio" text="3 years" />
+                                                        <RadioButton fx:id="experience5Radio" styleClass="form-radio" text="5+ years" />
+                                                    </children>
+                                                </HBox>
+                                                <HBox spacing="20.0">
+                                                    <children>
+                                                        <RadioButton fx:id="experience2Radio" styleClass="form-radio" text="&lt;2 years" />
+                                                        <RadioButton fx:id="experience1Radio" styleClass="form-radio" text="1 years" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Timeline Section -->
+                                        <Label styleClass="section-header" text="Timeline">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Label>
+
+                                        <VBox spacing="10.0">
+                                            <children>
+                                                <TextField promptText="Assigned task" styleClass="form-input" />
+                                                <HBox spacing="10.0">
+                                                    <children>
+                                                        <DatePicker fx:id="guideFromDatePicker" promptText="From" styleClass="form-datepicker" />
+                                                        <DatePicker fx:id="guideToDatePicker" promptText="To" styleClass="form-datepicker" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Action Buttons -->
+                                        <HBox alignment="CENTER" spacing="15.0" styleClass="button-section">
+                                            <children>
+                                                <Button fx:id="guideAvailabilityButton" mnemonicParsing="false" styleClass="secondary-button" text="✓ Availability" />
+                                                <Button fx:id="guideSubmitButton" mnemonicParsing="false" styleClass="primary-button" text="Submit" />
+                                            </children>
+                                        </HBox>
+
+                                        <Label styleClass="form-note" text="Return to previous page" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
+</BorderPane>

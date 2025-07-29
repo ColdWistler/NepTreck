@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tourism.controllers.DashboardController">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header">
+            <children>
+                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="header-logo">
+                </ImageView>
+                <Label styleClass="header-title" text="VisiNepalTech">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="Admin Panel" styleClass="header-subtitle" />
+                <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="logout-button" text="Logout" onAction="#handleLogout" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+        </HBox>
+    </top>
+
+    <left>
+        <VBox fx:id="sidebarMenu" prefWidth="200.0" spacing="5.0" styleClass="sidebar">
+            <children>
+                <Label styleClass="sidebar-header" text="Navigation">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <Separator />
+
+                <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Dashboard" onAction="#showDashboard" />
+                <Button fx:id="bookingManagementBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Booking Management" onAction="#handleViewBookings" />
+                <Button fx:id="accountManagementBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Account Management" onAction="#handleViewTourists" /> <Button fx:id="festivalOffersBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Festival Offers" onAction="#handleViewPackages" /> <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Settings" onAction="#handleCreateBackup" /> <Region VBox.vgrow="ALWAYS" />
+
+                <ImageView fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-decoration">
+                </ImageView>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+            </padding>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox fx:id="dashboardContent" spacing="20.0" styleClass="main-content">
+            <children>
+                <Label fx:id="welcomeLabel" styleClass="welcome-label" text="Welcome, Admin">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+
+                <Label styleClass="section-title" text="Dashboard Overview">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+
+                <VBox fx:id="statsContainer" spacing="20.0" styleClass="stats-container">
+                    <children>
+                        <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
+                            <children>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
+                                </ImageView>
+                                <Label fx:id="totalBookingsLabel" styleClass="stat-number" text="1,247">
+                                    <font>
+                                        <Font name="System Bold" size="28.0" />
+                                    </font>
+                                </Label>
+                                <Label styleClass="stat-label" text="Total Bookings" />
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
+                            <children>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
+                                </ImageView>
+                                <Label fx:id="totalTouristsLabel" styleClass="stat-number" text="892">
+                                    <font>
+                                        <Font name="System Bold" size="28.0" />
+                                    </font>
+                                </Label>
+                                <Label styleClass="stat-label" text="Total Tourists" />
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
+                            <children>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
+                                </ImageView>
+                                <Label fx:id="totalPackagesLabel" styleClass="stat-number" text="0">
+                                    <font>
+                                        <Font name="System Bold" size="28.0" />
+                                    </font>
+                                </Label>
+                                <Label styleClass="stat-label" text="Total Packages" />
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
+                            <children>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
+                                </ImageView>
+                                <Label fx:id="totalGuidesLabel" styleClass="stat-number" text="0">
+                                    <font>
+                                        <Font name="System Bold" size="28.0" />
+                                    </font>
+                                </Label>
+                                <Label styleClass="stat-label" text="Total Guides" />
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
+                            <children>
+                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
+                                </ImageView>
+                                <Label fx:id="activeDiscountsLabel" styleClass="stat-number" text="0">
+                                    <font>
+                                        <Font name="System Bold" size="28.0" />
+                                    </font>
+                                </Label>
+                                <Label styleClass="stat-label" text="Active Discounts" />
+                            </children>
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <VBox spacing="15.0" styleClass="activity-section">
+                    <children>
+                        <Label styleClass="section-title" text="Recent Activity">
+                            <font>
+                                <Font name="System Bold" size="18.0" />
+                            </font>
+                        </Label>
+
+                        <HBox spacing="20.0">
+                            <children>
+                                <VBox alignment="CENTER" spacing="10.0" styleClass="chart-container">
+                                    <children>
+                                        <PieChart prefHeight="200.0" prefWidth="300.0" styleClass="activity-pie-chart" />
+                                        <HBox spacing="20.0">
+                                            <children>
+                                                <Label styleClass="chart-legend" text="Booked: 40%" />
+                                                <Label styleClass="chart-legend" text="Flipped: 40%" />
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+
+                                <VBox spacing="10.0" styleClass="chart-container" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <BarChart prefHeight="200.0" styleClass="activity-bar-chart">
+                                            <xAxis>
+                                                <CategoryAxis side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                                <NumberAxis side="LEFT" />
+                                            </yAxis>
+                                        </BarChart>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
+            </padding>
+        </VBox>
+    </center>
+</BorderPane>
