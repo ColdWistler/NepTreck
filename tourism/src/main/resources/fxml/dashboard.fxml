@@ -38,9 +38,12 @@
                 </Label>
                 <Separator />
 
+                <!-- In dashboard.fxml, inside <VBox fx:id="sidebarMenu"> -->
                 <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Dashboard" onAction="#showDashboard" />
                 <Button fx:id="bookingManagementBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Booking Management" onAction="#handleViewBookings" />
-                <Button fx:id="accountManagementBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Account Management" onAction="#handleViewTourists" /> <Button fx:id="festivalOffersBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Festival Offers" onAction="#handleViewPackages" /> <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Settings" onAction="#handleCreateBackup" /> <Region VBox.vgrow="ALWAYS" />
+                <Button fx:id="accountManagementBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Account Management" onAction="#handleViewTourists" /> <!-- Now goes to Tourist Management -->
+                <Button fx:id="festivalOffersBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Festival Offers" onAction="#handleViewPackages" />
+                <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Guide Management" onAction="#handleViewGuides" /> <!-- Changed to Guide Management -->
 
                 <ImageView fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-decoration">
                 </ImageView>

@@ -4,13 +4,12 @@ module com.tourism {
     requires javafx.graphics;
     requires javafx.base;
 
-    // Open packages for FXML to allow reflective access for controllers
+    // Open for FXML and PropertyValueFactory reflection
     opens com.tourism.controllers to javafx.fxml;
-    opens com.tourism.models to javafx.fxml; // If models are accessed by FXML or controllers via reflection
-    opens com.tourism.services to javafx.fxml; // If services are accessed by FXML or controllers via reflection
-    opens com.tourism.utils to javafx.fxml; // If utils are accessed by FXML or controllers via reflection
+    opens com.tourism.models to javafx.fxml, javafx.base;
+    opens com.tourism.services to javafx.fxml;
+    opens com.tourism.utils to javafx.fxml;
 
-    // EXPORT the main package so JavaFX can access your TourismApp class and other core components.
-    // This is the crucial fix for the IllegalAccessError you are getting.
     exports com.tourism;
 }
+

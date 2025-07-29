@@ -312,6 +312,22 @@ public class FileDataManager {
         }
     }
 
+    // NEW: deleteDiscount method for FestivalDiscount
+    public static boolean deleteDiscount(String discountId) {
+        try {
+            List<FestivalDiscount> discounts = getAllDiscounts();
+            boolean removed = discounts.removeIf(discount -> discountId.equals(discount.getDiscountId()));
+            if (removed) {
+                return saveDiscounts(discounts);
+            }
+            return false;
+        } catch (Exception e) {
+            System.err.println("Error deleting discount: " + e.getMessage());
+            return false;
+        }
+    }
+
+
     private static String discountToString(FestivalDiscount discount) {
         StringBuilder sb = new StringBuilder();
         sb.append(discount.getDiscountId() != null ? discount.getDiscountId() : "").append("|");
@@ -778,15 +794,17 @@ public class FileDataManager {
     private static Guide parseGuideFromString(String line) {
         try {
             String[] parts = line.split("\\|");
-            if (parts.length >= 2) { // Changed this from >=2 to >=6 for robust parsing
+            if (parts.length >= 6) { // Corrected this from >=2 to >=6 for robust parsing
                 Guide guide = new Guide();
                 guide.setGuideId(parts[0]);
-                if (parts.length > 1 && !parts[1].isEmpty()) guide.setFullName(parts[1]);
-                if (parts.length > 2 && !parts[2].isEmpty()) guide.setEmail(parts[2]);
-                if (parts.length > 3 && !parts[3].isEmpty()) guide.setPhoneNumber(parts[3]);
-                if (parts.length > 4 && !parts[4].isEmpty()) guide.setSpecialization(parts[4]);
-                if (parts.length > 5) guide.setActive(Boolean.parseBoolean(parts[5]));
+                guide.setFullName(parts[1]);
+                guide.setEmail(parts[2]);
+                guide.setPhoneNumber(parts[3]);
+                guide.setSpecialization(parts[4]);
+                guide.setActive(Boolean.parseBoolean(parts[5]));
                 return guide;
+            } else {
+                System.err.println("WARNING: Guide line has fewer parts than expected (" + parts.length + "): " + line);
             }
         } catch (Exception e) {
             System.err.println("Error parsing guide: " + line);
@@ -919,4 +937,3 @@ public class FileDataManager {
         return null;
     }
 }
-

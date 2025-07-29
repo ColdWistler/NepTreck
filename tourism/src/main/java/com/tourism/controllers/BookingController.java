@@ -47,6 +47,7 @@ public class BookingController implements Initializable {
     @FXML private TableColumn<Booking, String> guideColumn; // Ensure this is present and mapped
 
     @FXML private Label statusLabel;
+    @FXML private Button backButton; // NEW: Back button FXML element
 
     private BookingService bookingService;
     private TouristService touristService;
@@ -126,6 +127,9 @@ public class BookingController implements Initializable {
         // Assuming refreshButton in FXML maps to refreshTableButton in the code snippet I previously provided
         if (refreshButton != null) {
             refreshButton.setOnAction(event -> handleRefresh());
+        }
+        if (backButton != null) { // NEW: Set action for back button
+            backButton.setOnAction(event -> handleBackToDashboard());
         }
 
         // Table selection handler
@@ -357,6 +361,20 @@ public class BookingController implements Initializable {
     private void clearStatusMessage() {
         if (statusLabel != null) {
             statusLabel.setText("");
+        }
+    }
+
+    // NEW: Method to handle returning to the Dashboard
+    @FXML
+    private void handleBackToDashboard() {
+        try {
+            System.out.println("DEBUG: Navigating back to Dashboard...");
+            com.tourism.TourismApp.switchScene("/fxml/dashboard.fxml", "Dashboard");
+            FileDataManager.logActivity(SessionManager.getCurrentUser().getUsername(), "Navigated back to Dashboard from Booking Management");
+        } catch (Exception e) {
+            System.err.println("Error navigating back to Dashboard: " + e.getMessage());
+            e.printStackTrace();
+            showStatus("Error navigating back: " + e.getMessage(), false);
         }
     }
 }

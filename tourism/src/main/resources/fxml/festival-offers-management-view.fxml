@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tourism.controllers.FestivalOfferController">
+    <top>
+        <!-- Header for Festival Offers Management -->
+        <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header">
+            <children>
+                <Label styleClass="header-title" text="VisiNepalTech">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Region HBox.hgrow="ALWAYS" />
+                <Label styleClass="form-header" text="Festival Offers Management">
+                    <font>
+                        <Font name="System Bold" size="18.0" />
+                    </font>
+                </Label>
+                <!-- Back Button -->
+                <Button fx:id="backButton" mnemonicParsing="false" styleClass="secondary-button" text="← Back to Dashboard" onAction="#handleBackToDashboard" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+        </HBox>
+    </top>
+
+    <center>
+        <HBox spacing="20.0" alignment="TOP_LEFT" styleClass="main-content-area">
+            <!-- Left Pane: Festival Offer Form -->
+            <VBox spacing="15.0" prefWidth="400.0" styleClass="form-section">
+                <padding>
+                    <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+                </padding>
+                <children>
+                    <Label styleClass="section-title" text="Offer Details">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+
+                    <Label text="Offer Name:" styleClass="form-label" />
+                    <TextField fx:id="offerNameField" promptText="e.g., Dashain Discount" styleClass="form-input" />
+
+                    <Label text="Discount Percentage (%):" styleClass="form-label" />
+                    <TextField fx:id="discountPercentageField" promptText="e.g., 10.0, 15.5" styleClass="form-input" />
+
+                    <CheckBox fx:id="activeCheckBox" text="Active Offer" styleClass="form-checkbox" />
+
+                    <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                        <children>
+                            <Button fx:id="createOfferButton" text="Add Offer" styleClass="primary-button" onAction="#handleCreateOffer" />
+                            <Button fx:id="updateOfferButton" text="Update Offer" styleClass="secondary-button" onAction="#handleUpdateOffer" />
+                        </children>
+                    </HBox>
+                    <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                        <children>
+                            <Button fx:id="clearFormButton" text="Clear Form" styleClass="tertiary-button" onAction="#handleClearForm" />
+                            <Button fx:id="deleteOfferButton" text="Delete Offer" styleClass="delete-button" onAction="#handleDeleteOffer" />
+                        </children>
+                    </HBox>
+
+                    <Label fx:id="statusLabel" text="" styleClass="status-label" />
+                </children>
+            </VBox>
+
+            <!-- Right Pane: Offers Table -->
+            <VBox spacing="10.0" HBox.hgrow="ALWAYS" styleClass="table-section">
+                <padding>
+                    <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
+                </padding>
+                <children>
+                    <Label styleClass="section-title" text="All Festival Offers">
+                        <font>
+                            <Font name="System Bold" size="16.0" />
+                        </font>
+                    </Label>
+
+                    <TableView fx:id="offersTable" VBox.vgrow="ALWAYS" styleClass="data-table">
+                        <columns>
+                            <TableColumn fx:id="offerIdColumn" prefWidth="100.0" text="ID" />
+                            <TableColumn fx:id="offerNameColumn" prefWidth="200.0" text="Offer Name" />
+                            <TableColumn fx:id="discountPercentageColumn" prefWidth="150.0" text="Discount (%)" />
+                            <TableColumn fx:id="activeColumn" prefWidth="80.0" text="Active" />
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                        </columnResizePolicy>
+                    </TableView>
+
+                    <HBox spacing="10.0" alignment="CENTER_LEFT">
+                        <children>
+                            <Button fx:id="refreshTableButton" text="Refresh Table" styleClass="tertiary-button" onAction="#handleRefreshTable" />
+                        </children>
+                    </HBox>
+                </children>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

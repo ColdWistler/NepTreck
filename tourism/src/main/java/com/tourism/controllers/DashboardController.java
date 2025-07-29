@@ -189,12 +189,12 @@ public class DashboardController implements Initializable {
     @FXML
     private void handleViewPackages() {
         try {
-            // Navigate to packages view
-            com.tourism.TourismApp.switchScene("/fxml/package-management.fxml", "Package Management");
+            // NEW: Route to Festival Offers Management
+            com.tourism.TourismApp.switchScene("/fxml/festival-offers-management-view.fxml", "Festival Offers Management");
             FileDataManager.logActivity(SessionManager.getCurrentUser().getUsername(),
-                    "Navigated to Package Management");
+                    "Navigated to Festival Offers Management");
         } catch (Exception e) {
-            System.err.println("Error navigating to packages: " + e.getMessage());
+            System.err.println("Error navigating to Festival Offers: " + e.getMessage());
         }
     }
 
