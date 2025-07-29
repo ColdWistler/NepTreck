@@ -1,0 +1,2 @@
+admin-001|admin|admin|ADMIN|System Administrator|SUPER|true
+staff-001|staff|19975738|STAFF|Tourism Staff||true

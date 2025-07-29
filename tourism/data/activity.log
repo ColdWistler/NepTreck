@@ -1,0 +1,139 @@
+2025-07-29T13:59:35.162886386 | SYSTEM | Application started successfully
+2025-07-29T13:59:40.477832158 | admin | Session started
+2025-07-29T13:59:40.478341194 | admin | User authenticated successfully
+2025-07-29T13:59:40.478546969 | admin | Login successful
+2025-07-29T13:59:40.67128517 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T13:59:42.881399934 | SYSTEM | Scene switched to: /fxml/booking-management-view.fxml
+2025-07-29T13:59:42.881616648 | admin | Navigated to Booking Management
+2025-07-29T13:59:46.616570342 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T13:59:46.616814767 | admin | Navigated back to Dashboard from Booking Management
+2025-07-29T13:59:49.055322213 | SYSTEM | Application shutting down
+2025-07-29T13:59:49.059986242 | SYSTEM | Backup created: backups/tourism_backup_20250729_135949.zip
+2025-07-29T14:00:02.009579819 | SYSTEM | Application started successfully
+2025-07-29T14:00:13.15446965 | admin | Session started
+2025-07-29T14:00:13.154645829 | admin | User authenticated successfully
+2025-07-29T14:00:13.154812033 | admin | Login successful
+2025-07-29T14:00:13.263293153 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T14:00:14.907250685 | SYSTEM | Scene switched to: /fxml/tourist-management-view.fxml
+2025-07-29T14:00:14.907453152 | admin | Navigated to Tourist Management
+2025-07-29T14:00:16.625241135 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T14:00:16.625550321 | admin | Navigated back to Dashboard from Tourist Management
+2025-07-29T14:00:18.87146557 | SYSTEM | Application shutting down
+2025-07-29T14:00:18.875031277 | SYSTEM | Backup created: backups/tourism_backup_20250729_140018.zip
+2025-07-29T14:02:01.207101757 | SYSTEM | Application started successfully
+2025-07-29T14:02:08.076275676 | admin | Session started
+2025-07-29T14:02:08.076438933 | admin | User authenticated successfully
+2025-07-29T14:02:08.076552768 | admin | Login successful
+2025-07-29T14:02:08.185801244 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T14:02:09.650099324 | SYSTEM | Scene switched to: /fxml/tourist-management-view.fxml
+2025-07-29T14:02:09.650361434 | admin | Navigated to Tourist Management
+2025-07-29T14:02:29.130906138 | SYSTEM | Tourist saved/updated: Saugat Chaudhary
+2025-07-29T14:02:29.132745574 | admin | Created tourist: Saugat Chaudhary
+2025-07-29T14:02:35.458891911 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T14:02:35.459091318 | admin | Navigated back to Dashboard from Tourist Management
+2025-07-29T14:02:39.153641313 | SYSTEM | Application shutting down
+2025-07-29T14:02:39.157363448 | SYSTEM | Backup created: backups/tourism_backup_20250729_140239.zip
+2025-07-29T14:27:22.385538508 | SYSTEM | Application started successfully
+2025-07-29T14:28:31.481739135 | SYSTEM | Application shutting down
+2025-07-29T14:28:31.493676618 | SYSTEM | Backup created: backups/tourism_backup_20250729_142831.zip
+2025-07-29T14:28:42.083132334 | SYSTEM | Application started successfully
+2025-07-29T14:29:45.744455547 | SYSTEM | Application shutting down
+2025-07-29T14:29:45.758648998 | SYSTEM | Backup created: backups/tourism_backup_20250729_142945.zip
+2025-07-29T14:29:59.308146004 | SYSTEM | Application started successfully
+2025-07-29T14:30:03.71110718 | SYSTEM | Application shutting down
+2025-07-29T14:30:03.72489682 | SYSTEM | Backup created: backups/tourism_backup_20250729_143003.zip
+2025-07-29T14:30:32.1578068 | SYSTEM | Application started successfully
+2025-07-29T14:30:58.470418676 | SYSTEM | Application shutting down
+2025-07-29T14:30:58.477780573 | SYSTEM | Backup created: backups/tourism_backup_20250729_143058.zip
+2025-07-29T14:31:05.62308898 | SYSTEM | Application started successfully
+2025-07-29T14:31:54.209457692 | SYSTEM | Language changed to: Nepali
+2025-07-29T14:32:00.586713603 | admin | Session started
+2025-07-29T14:32:00.586923101 | admin | User authenticated successfully
+2025-07-29T14:32:00.587004384 | admin | Login successful
+2025-07-29T14:32:00.686613449 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T14:32:04.647916124 | SYSTEM | Scene switched to: /fxml/booking-management-view.fxml
+2025-07-29T14:32:04.648177093 | admin | Navigated to Booking Management
+2025-07-29T14:32:06.677216457 | SYSTEM | Application shutting down
+2025-07-29T14:32:06.685320629 | SYSTEM | Backup created: backups/tourism_backup_20250729_143206.zip
+2025-07-29T14:32:34.142450896 | SYSTEM | Application started successfully
+2025-07-29T14:32:40.300867469 | SYSTEM | Application shutting down
+2025-07-29T14:32:40.306632501 | SYSTEM | Backup created: backups/tourism_backup_20250729_143240.zip
+2025-07-29T14:32:48.095861567 | SYSTEM | Application started successfully
+2025-07-29T14:33:38.524202701 | SYSTEM | Application shutting down
+2025-07-29T14:33:38.531143283 | SYSTEM | Backup created: backups/tourism_backup_20250729_143338.zip
+2025-07-29T14:34:01.931592594 | SYSTEM | Application started successfully
+2025-07-29T14:34:06.1319911 | SYSTEM | Application shutting down
+2025-07-29T14:34:06.13842579 | SYSTEM | Backup created: backups/tourism_backup_20250729_143406.zip
+2025-07-29T14:34:54.010666564 | SYSTEM | Application started successfully
+2025-07-29T14:34:57.811921532 | SYSTEM | Application shutting down
+2025-07-29T14:34:57.818939423 | SYSTEM | Backup created: backups/tourism_backup_20250729_143457.zip
+2025-07-29T14:36:00.342036091 | SYSTEM | Application started successfully
+2025-07-29T14:36:03.29958255 | SYSTEM | Application shutting down
+2025-07-29T14:36:03.306903708 | SYSTEM | Backup created: backups/tourism_backup_20250729_143603.zip
+2025-07-29T14:36:10.690207842 | SYSTEM | Application started successfully
+2025-07-29T14:36:18.315519323 | SYSTEM | Application shutting down
+2025-07-29T14:36:18.321949388 | SYSTEM | Backup created: backups/tourism_backup_20250729_143618.zip
+2025-07-29T14:36:25.02357638 | SYSTEM | Application started successfully
+2025-07-29T14:36:32.811086424 | SYSTEM | Application shutting down
+2025-07-29T14:36:32.817687144 | SYSTEM | Backup created: backups/tourism_backup_20250729_143632.zip
+2025-07-29T14:36:39.54433999 | SYSTEM | Application started successfully
+2025-07-29T14:36:43.659350371 | SYSTEM | Application shutting down
+2025-07-29T14:36:43.665720142 | SYSTEM | Backup created: backups/tourism_backup_20250729_143643.zip
+2025-07-29T14:36:49.547503378 | SYSTEM | Application started successfully
+2025-07-29T14:39:17.275830694 | SYSTEM | Application shutting down
+2025-07-29T14:39:17.309003246 | SYSTEM | Backup created: backups/tourism_backup_20250729_143917.zip
+2025-07-29T14:39:37.453413404 | SYSTEM | Application started successfully
+2025-07-29T14:39:50.139309082 | SYSTEM | Application shutting down
+2025-07-29T14:39:50.146749806 | SYSTEM | Backup created: backups/tourism_backup_20250729_143950.zip
+2025-07-29T14:40:04.179560311 | SYSTEM | Application started successfully
+2025-07-29T14:40:22.126573819 | admin | Session started
+2025-07-29T14:40:22.126760532 | admin | User authenticated successfully
+2025-07-29T14:40:22.126917126 | admin | Login successful
+2025-07-29T14:40:22.241504864 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T14:45:44.880169688 | admin | Session ended
+2025-07-29T14:45:44.88442773 | admin | User logged out from dashboard
+2025-07-29T14:45:44.99089515 | SYSTEM | Scene switched to: /fxml/login.fxml
+2025-07-29T14:47:01.164434138 | SYSTEM | Application shutting down
+2025-07-29T14:47:01.217185533 | SYSTEM | Backup created: backups/tourism_backup_20250729_144701.zip
+2025-07-29T14:50:06.83435227 | SYSTEM | Application started successfully
+2025-07-29T14:50:13.568483359 | admin | Session started
+2025-07-29T14:50:13.568647079 | admin | User authenticated successfully
+2025-07-29T14:50:13.568728731 | admin | Login successful
+2025-07-29T14:50:13.669715557 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T14:50:46.544595407 | SYSTEM | Scene switched to: /fxml/booking-management-view.fxml
+2025-07-29T14:50:46.544917706 | admin | Navigated to Booking Management
+2025-07-29T14:50:49.981672551 | SYSTEM | Application shutting down
+2025-07-29T14:50:49.997642548 | SYSTEM | Backup created: backups/tourism_backup_20250729_145049.zip
+2025-07-29T15:05:24.123317526 | SYSTEM | Application started successfully
+2025-07-29T15:05:38.74375547 | admin | Session started
+2025-07-29T15:05:38.743937331 | admin | User authenticated successfully
+2025-07-29T15:05:38.744052375 | admin | Login successful
+2025-07-29T15:05:38.83937952 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T15:05:53.68461719 | SYSTEM | Scene switched to: /fxml/booking-management-view.fxml
+2025-07-29T15:05:53.684939627 | admin | Navigated to Booking Management
+2025-07-29T15:06:02.62531725 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T15:06:02.625576078 | admin | Navigated back to Dashboard from Booking Management
+2025-07-29T15:06:11.397506358 | SYSTEM | Scene switched to: /fxml/tourist-management-view.fxml
+2025-07-29T15:06:11.397740111 | admin | Navigated to Tourist Management
+2025-07-29T15:06:16.731905749 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T15:06:16.732119032 | admin | Navigated back to Dashboard from Tourist Management
+2025-07-29T15:06:18.481937094 | SYSTEM | Scene switched to: /fxml/festival-offers-management-view.fxml
+2025-07-29T15:06:18.482129781 | admin | Navigated to Festival Offers Management
+2025-07-29T15:06:20.704258846 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T15:06:20.70456975 | admin | Navigated back to Dashboard from Festival Offers Management
+2025-07-29T15:06:21.821879955 | SYSTEM | Scene switched to: /fxml/guide-management-view.fxml
+2025-07-29T15:06:21.822081066 | admin | Navigated to Guide Management
+2025-07-29T15:06:23.437218138 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T15:06:23.437434507 | admin | Navigated back to Dashboard from Guide Management
+2025-07-29T15:06:32.715742765 | SYSTEM | Scene switched to: /fxml/festival-offers-management-view.fxml
+2025-07-29T15:06:32.715927345 | admin | Navigated to Festival Offers Management
+2025-07-29T15:06:34.171673504 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T15:06:34.171837187 | admin | Navigated back to Dashboard from Festival Offers Management
+2025-07-29T15:06:35.610823903 | SYSTEM | Scene switched to: /fxml/tourist-management-view.fxml
+2025-07-29T15:06:35.611040516 | admin | Navigated to Tourist Management
+2025-07-29T15:06:37.421357902 | SYSTEM | Scene switched to: /fxml/dashboard.fxml
+2025-07-29T15:06:37.421584123 | admin | Navigated back to Dashboard from Tourist Management
+2025-07-29T15:07:05.867893107 | admin | Session ended
+2025-07-29T15:07:05.868112999 | admin | User logged out from dashboard
+2025-07-29T15:07:05.919812065 | SYSTEM | Scene switched to: /fxml/login.fxml
+2025-07-29T15:07:17.602764013 | SYSTEM | Application exit requested from login
