@@ -818,7 +818,7 @@ public class FileDataManager {
         sb.append(pkg.getPackageName() != null ? pkg.getPackageName() : "").append("|");
         sb.append(pkg.getDescription() != null ? pkg.getDescription() : "").append("|");
         sb.append(pkg.getPrice() != null ? pkg.getPrice().toString() : "0.0").append("|");
-        sb.append(pkg.getDuration() != null ? pkg.getDuration().toString() : "1").append("|");
+        sb.append(pkg.getDurationDays() != null ? pkg.getDurationDays().toString() : "1").append("|");
         sb.append(pkg.getCategory() != null ? pkg.getCategory() : "").append("|");
         sb.append(pkg.getDestination() != null ? pkg.getDestination() : "").append("|");
         sb.append(pkg.getDifficulty() != null ? pkg.getDifficulty() : "").append("|");
@@ -835,7 +835,7 @@ public class FileDataManager {
                 TourPackage pkg = new TourPackage();
 
                 pkg.setPackageId(parts[0]);
-                pkg.setPackageName(parts[1]);
+                pkg.setName(parts[1]);
                 pkg.setDescription(parts[2]);
 
                 // Parse price safely
@@ -850,9 +850,9 @@ public class FileDataManager {
                 // Parse duration safely
                 if (!parts[4].isEmpty()) {
                     try {
-                        pkg.setDuration(Integer.parseInt(parts[4]));
+                        pkg.setDurationDays(Integer.parseInt(parts[4]));
                     } catch (NumberFormatException e) {
-                        pkg.setDuration(1);
+                        pkg.setDurationDays(1);
                     }
                 }
 
@@ -935,5 +935,8 @@ public class FileDataManager {
             System.err.println("Error parsing booking: " + line);
         }
         return null;
+    }
+
+    public static void backupAllData() {
     }
 }

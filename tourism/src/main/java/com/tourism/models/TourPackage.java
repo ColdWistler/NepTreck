@@ -1,165 +1,113 @@
 package com.tourism.models;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 public class TourPackage {
     private String packageId;
-    private String packageName;
+    private String name;
     private String description;
     private Double price;
-    private Integer duration; // in days
-    private String category;
+    private Integer durationDays; // duration in days
+    private String type;
     private String destination;
-    private String inclusions;
-    private String exclusions;
+    private String difficulty;
+    private String season;
     private Integer maxParticipants;
-    private boolean active;
-    private LocalDateTime createdAt;
-    private String difficulty; // EASY, MODERATE, HARD
-    private String season; // SPRING, SUMMER, AUTUMN, WINTER, ALL_YEAR
+    private Double maxAltitude;
+    private String category;
+    private boolean active = true;
 
-    // Constructors
-    public TourPackage() {
-        this.active = true;
-        this.createdAt = LocalDateTime.now();
-    }
-
-    public TourPackage(String packageId, String packageName, String description, Double price, Integer duration, String category) {
+    // Basic constructor
+    public TourPackage(String packageId, String name, String description, Double price, Integer durationDays, String type) {
         this.packageId = packageId;
-        this.packageName = packageName;
+        this.name = name;
         this.description = description;
         this.price = price;
-        this.duration = duration;
-        this.category = category;
+        this.durationDays = durationDays;
+        this.type = type;
+        this.destination = "N/A";
+        this.difficulty = "N/A";
+        this.season = "N/A";
+        this.maxParticipants = 0;
+        this.maxAltitude = 0.0;
+        this.category = "Uncategorized";
+    }
+    public TourPackage() {
         this.active = true;
-        this.createdAt = LocalDateTime.now();
+    }
+
+    // Full constructor
+    public TourPackage(String packageId, String name, String description, Double price,
+                       Integer durationDays, String type, String destination, String difficulty,
+                       String season, Integer maxParticipants, Double maxAltitude, String category) {
+        this.packageId = packageId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.durationDays = durationDays;
+        this.type = type;
+        this.destination = destination;
+        this.difficulty = difficulty;
+        this.season = season;
+        this.maxParticipants = maxParticipants;
+        this.maxAltitude = maxAltitude;
+        this.category = category;
     }
 
     // Getters and Setters
-    public String getPackageId() {
-        return packageId;
-    }
+    public String getPackageId() { return packageId; }
+    public void setPackageId(String packageId) { this.packageId = packageId; }
 
-    public void setPackageId(String packageId) {
-        this.packageId = packageId;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getPackageName() {
-        return packageName;
-    }
+    public String getPackageName() { return getName(); }
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
-    }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-    public String getDescription() {
-        return description;
-    }
+    public Double getPrice() { return price; }
+    public void setPrice(Double price) { this.price = price; }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public Integer getDurationDays() { return durationDays; }
+    public void setDurationDays(Integer durationDays) { this.durationDays = durationDays; }
 
-    public Double getPrice() {
-        return price;
-    }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+    public String getDestination() { return destination; }
+    public void setDestination(String destination) { this.destination = destination; }
 
-    public Integer getDuration() {
-        return duration;
-    }
+    public String getDifficulty() { return difficulty; }
+    public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
 
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
+    public String getSeason() { return season; }
+    public void setSeason(String season) { this.season = season; }
 
-    public String getCategory() {
-        return category;
-    }
+    public Integer getMaxParticipants() { return maxParticipants; }
+    public void setMaxParticipants(Integer maxParticipants) { this.maxParticipants = maxParticipants; }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    public Double getMaxAltitude() { return maxAltitude; }
+    public void setMaxAltitude(Double maxAltitude) { this.maxAltitude = maxAltitude; }
 
-    public String getDestination() {
-        return destination;
-    }
+    public String getCategory() { return category; }
+    public void setCategory(String category) { this.category = category; }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public String getInclusions() {
-        return inclusions;
-    }
-
-    public void setInclusions(String inclusions) {
-        this.inclusions = inclusions;
-    }
-
-    public String getExclusions() {
-        return exclusions;
-    }
-
-    public void setExclusions(String exclusions) {
-        this.exclusions = exclusions;
-    }
-
-    public Integer getMaxParticipants() {
-        return maxParticipants;
-    }
-
-    public void setMaxParticipants(Integer maxParticipants) {
-        this.maxParticipants = maxParticipants;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
-
-    public String getSeason() {
-        return season;
-    }
-
-    public void setSeason(String season) {
-        this.season = season;
-    }
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
 
     @Override
     public String toString() {
-        return packageName != null ? packageName : packageId;
-    }
-
-    public String getDetailedInfo() {
         return "TourPackage{" +
                 "packageId='" + packageId + '\'' +
-                ", packageName='" + packageName + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", price=" + price +
-                ", duration=" + duration +
+                ", durationDays=" + durationDays +
+                ", type='" + type + '\'' +
+                ", destination='" + destination + '\'' +
+                ", difficulty='" + difficulty + '\'' +
+                ", season='" + season + '\'' +
+                ", maxParticipants=" + maxParticipants +
+                ", maxAltitude=" + maxAltitude +
                 ", category='" + category + '\'' +
                 ", active=" + active +
                 '}';

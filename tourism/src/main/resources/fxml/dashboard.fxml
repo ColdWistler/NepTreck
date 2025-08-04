@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tourism.controllers.DashboardController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tourism.controllers.DashboardController">
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header">
+        <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header" BorderPane.alignment="CENTER"
+              style="-fx-background-image: url('/images/dashboard.png'); -fx-background-size: cover;">
             <children>
                 <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="header-logo">
                 </ImageView>
-                <Label styleClass="header-title" text="VisiNepalTech">
+                <Label styleClass="header-title" text="%app.brandTitle">
                     <font>
                         <Font name="System Bold" size="20.0" />
                     </font>
                 </Label>
                 <Region HBox.hgrow="ALWAYS" />
-                <Label text="Admin Panel" styleClass="header-subtitle" />
-                <Button fx:id="logoutButton" mnemonicParsing="false" styleClass="logout-button" text="Logout" onAction="#handleLogout" />
+                <Label styleClass="header-subtitle" text="%dashboard.adminPanel" />
+                <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogout" styleClass="logout-button" text="%dashboard.logout" />
             </children>
             <padding>
                 <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
@@ -29,21 +30,20 @@
     </top>
 
     <left>
-        <VBox fx:id="sidebarMenu" prefWidth="200.0" spacing="5.0" styleClass="sidebar">
+        <VBox fx:id="sidebarMenu" prefWidth="200.0" spacing="5.0" styleClass="sidebar" BorderPane.alignment="CENTER">
             <children>
-                <Label styleClass="sidebar-header" text="Navigation">
+                <Label styleClass="sidebar-header" text="%dashboard.navigation">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
                 <Separator />
 
-                <!-- In dashboard.fxml, inside <VBox fx:id="sidebarMenu"> -->
-                <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Dashboard" onAction="#showDashboard" />
-                <Button fx:id="bookingManagementBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Booking Management" onAction="#handleViewBookings" />
-                <Button fx:id="accountManagementBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Account Management" onAction="#handleViewTourists" /> <!-- Now goes to Tourist Management -->
-                <Button fx:id="festivalOffersBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Festival Offers" onAction="#handleViewPackages" />
-                <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" prefWidth="180.0" styleClass="sidebar-button" text="Guide Management" onAction="#handleViewGuides" /> <!-- Changed to Guide Management -->
+                <Button fx:id="dashboardBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#showDashboard" prefWidth="180.0" styleClass="sidebar-button" text="%dashboard.button.dashboard" />
+                <Button fx:id="bookingManagementBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleViewBookings" prefWidth="180.0" styleClass="sidebar-button" text="%dashboard.button.bookingManagement" />
+                <Button fx:id="accountManagementBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleViewTourists" prefWidth="180.0" styleClass="sidebar-button" text="%dashboard.button.accountManagement" />
+                <Button fx:id="festivalOffersBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleViewPackages" prefWidth="180.0" styleClass="sidebar-button" text="%dashboard.button.festivalOffers" />
+                <Button fx:id="settingsBtn" alignment="BASELINE_LEFT" mnemonicParsing="false" onAction="#handleViewGuides" prefWidth="180.0" styleClass="sidebar-button" text="%dashboard.button.guideManagement" />
 
                 <ImageView fitHeight="80.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" styleClass="sidebar-decoration">
                 </ImageView>
@@ -55,15 +55,15 @@
     </left>
 
     <center>
-        <VBox fx:id="dashboardContent" spacing="20.0" styleClass="main-content">
+        <VBox fx:id="dashboardContent" spacing="20.0" styleClass="main-content" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="welcomeLabel" styleClass="welcome-label" text="Welcome, Admin">
+                <Label fx:id="welcomeLabel" styleClass="welcome-label" text="%dashboard.welcomeAdmin">
                     <font>
                         <Font name="System Bold" size="24.0" />
                     </font>
                 </Label>
 
-                <Label styleClass="section-title" text="Dashboard Overview">
+                <Label styleClass="section-title" text="%dashboard.overview">
                     <font>
                         <Font name="System Bold" size="18.0" />
                     </font>
@@ -71,126 +71,101 @@
 
                 <VBox fx:id="statsContainer" spacing="20.0" styleClass="stats-container">
                     <children>
-                        <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                             <children>
-                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
-                                </ImageView>
-                                <Label fx:id="totalBookingsLabel" styleClass="stat-number" text="1,247">
-                                    <font>
-                                        <Font name="System Bold" size="28.0" />
-                                    </font>
-                                </Label>
-                                <Label styleClass="stat-label" text="Total Bookings" />
-                            </children>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                            </padding>
-                        </VBox>
-
-                        <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
-                            <children>
-                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
-                                </ImageView>
-                                <Label fx:id="totalTouristsLabel" styleClass="stat-number" text="892">
-                                    <font>
-                                        <Font name="System Bold" size="28.0" />
-                                    </font>
-                                </Label>
-                                <Label styleClass="stat-label" text="Total Tourists" />
-                            </children>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                            </padding>
-                        </VBox>
-
-                        <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
-                            <children>
-                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
-                                </ImageView>
-                                <Label fx:id="totalPackagesLabel" styleClass="stat-number" text="0">
-                                    <font>
-                                        <Font name="System Bold" size="28.0" />
-                                    </font>
-                                </Label>
-                                <Label styleClass="stat-label" text="Total Packages" />
-                            </children>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                            </padding>
-                        </VBox>
-
-                        <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
-                            <children>
-                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
-                                </ImageView>
-                                <Label fx:id="totalGuidesLabel" styleClass="stat-number" text="0">
-                                    <font>
-                                        <Font name="System Bold" size="28.0" />
-                                    </font>
-                                </Label>
-                                <Label styleClass="stat-label" text="Total Guides" />
-                            </children>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                            </padding>
-                        </VBox>
-
-                        <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
-                            <children>
-                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
-                                </ImageView>
-                                <Label fx:id="activeDiscountsLabel" styleClass="stat-number" text="0">
-                                    <font>
-                                        <Font name="System Bold" size="28.0" />
-                                    </font>
-                                </Label>
-                                <Label styleClass="stat-label" text="Active Discounts" />
-                            </children>
-                            <padding>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                            </padding>
-                        </VBox>
-                    </children>
-                </VBox>
-
-                <VBox spacing="15.0" styleClass="activity-section">
-                    <children>
-                        <Label styleClass="section-title" text="Recent Activity">
-                            <font>
-                                <Font name="System Bold" size="18.0" />
-                            </font>
-                        </Label>
-
-                        <HBox spacing="20.0">
-                            <children>
-                                <VBox alignment="CENTER" spacing="10.0" styleClass="chart-container">
+                                <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
                                     <children>
-                                        <PieChart prefHeight="200.0" prefWidth="300.0" styleClass="activity-pie-chart" />
-                                        <HBox spacing="20.0">
-                                            <children>
-                                                <Label styleClass="chart-legend" text="Booked: 40%" />
-                                                <Label styleClass="chart-legend" text="Flipped: 40%" />
-                                            </children>
-                                        </HBox>
+                                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
+                                        </ImageView>
+                                        <Label fx:id="totalBookingsLabel" styleClass="stat-number" text="1,247">
+                                            <font>
+                                                <Font name="System Bold" size="28.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="totalBookingsTextLabel" styleClass="stat-label" text="%dashboard.totalBookings" />
                                     </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
                                 </VBox>
-
-                                <VBox spacing="10.0" styleClass="chart-container" HBox.hgrow="ALWAYS">
+                                <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
                                     <children>
-                                        <BarChart prefHeight="200.0" styleClass="activity-bar-chart">
-                                            <xAxis>
-                                                <CategoryAxis side="BOTTOM" />
-                                            </xAxis>
-                                            <yAxis>
-                                                <NumberAxis side="LEFT" />
-                                            </yAxis>
-                                        </BarChart>
+                                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
+                                        </ImageView>
+                                        <Label fx:id="activeDiscountsLabel" styleClass="stat-number" text="0">
+                                            <font>
+                                                <Font name="System Bold" size="28.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="activeDiscountsTextLabel" styleClass="stat-label" text="%dashboard.activeDiscounts" />
                                     </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+                                <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
+                                    <children>
+                                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
+                                        </ImageView>
+                                        <Label fx:id="totalTouristsLabel" styleClass="stat-number" text="892">
+                                            <font>
+                                                <Font name="System Bold" size="28.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="totalTouristsTextLabel" styleClass="stat-label" text="%dashboard.totalTourists" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                            <children>
+                                <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
+                                    <children>
+                                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
+                                        </ImageView>
+                                        <Label fx:id="totalPackagesLabel" styleClass="stat-number" text="0">
+                                            <font>
+                                                <Font name="System Bold" size="28.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="totalPackagesTextLabel" styleClass="stat-label" text="%dashboard.totalPackages" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+                                <VBox alignment="CENTER" spacing="10.0" styleClass="stat-card">
+                                    <children>
+                                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="stat-icon">
+                                        </ImageView>
+                                        <Label fx:id="totalGuidesLabel" styleClass="stat-number" text="0">
+                                            <font>
+                                                <Font name="System Bold" size="28.0" />
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="totalGuidesTextLabel" styleClass="stat-label" text="%dashboard.totalGuides" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    </padding>
                                 </VBox>
                             </children>
                         </HBox>
                     </children>
                 </VBox>
+
+                <BarChart fx:id="sampleBarChart" animated="true" legendVisible="true" prefHeight="300.0" title="%dashboard.chartTitle">
+                    <xAxis>
+                        <CategoryAxis fx:id="chartCategoryAxis" label="%dashboard.chart.category" />
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="chartValueAxis" label="%dashboard.chart.value" />
+                    </yAxis>
+                </BarChart>
+
             </children>
             <padding>
                 <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />

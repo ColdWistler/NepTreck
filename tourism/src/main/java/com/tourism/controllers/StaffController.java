@@ -9,22 +9,21 @@ import javafx.stage.Stage;
 import com.tourism.models.User;
 import com.tourism.utils.SessionManager;
 
+import java.util.Objects;
+
 public class StaffController {
 
     @FXML private Label staffWelcomeLabel;
     @FXML private Button staffLogoutButton;
     @FXML private Button newBookingButton;
-    @FXML private Button registerGuideButton;
-    @FXML private Button viewReportsButton;
-    @FXML private Button manageTouristsButton;
     @FXML private Button emergencyContactsButton;
-    @FXML private Button settingsButton;
-    @FXML private TableView<String> recentActivityTable;
+    @FXML private Button viewAttractionsButton;
+    @FXML private Button festivalDiscountButton;
+    @FXML private Button backButton;
 
     public void initialize() {
         setupStaffDashboard();
         setupEventHandlers();
-        loadRecentActivity();
     }
 
     private void setupStaffDashboard() {
@@ -37,16 +36,10 @@ public class StaffController {
     private void setupEventHandlers() {
         staffLogoutButton.setOnAction(e -> handleLogout());
         newBookingButton.setOnAction(e -> openBookingForm());
-        registerGuideButton.setOnAction(e -> openGuideRegistration());
-        viewReportsButton.setOnAction(e -> openReports());
-        manageTouristsButton.setOnAction(e -> openTouristManagement());
         emergencyContactsButton.setOnAction(e -> openEmergencyContacts());
-        settingsButton.setOnAction(e -> openSettings());
-    }
-
-    private void loadRecentActivity() {
-        // Load recent activity data
-        // This would typically come from a service
+        viewAttractionsButton.setOnAction(e -> openViewAttractions());
+        festivalDiscountButton.setOnAction(e -> openFestivalDiscounts());
+        backButton.setOnAction(e -> handleBack());
     }
 
     @FXML
@@ -55,28 +48,18 @@ public class StaffController {
     }
 
     @FXML
-    private void openGuideRegistration() {
-        loadScene("/fxml/guide-registration.fxml");
-    }
-
-    @FXML
-    private void openReports() {
-        showAlert("Reports", "Reports module will be implemented here.");
-    }
-
-    @FXML
-    private void openTouristManagement() {
-        showAlert("Tourist Management", "Tourist management module will be implemented here.");
-    }
-
-    @FXML
     private void openEmergencyContacts() {
-        showAlert("Emergency Contacts", "Emergency contacts module will be implemented here.");
+        loadScene("/fxml/emergency-report.fxml"); // Update if needed
     }
 
     @FXML
-    private void openSettings() {
-        showAlert("Settings", "Settings module will be implemented here.");
+    private void openViewAttractions() {
+        loadScene("/fxml/view-attractions.fxml");
+    }
+
+    @FXML
+    private void openFestivalDiscounts() {
+        loadScene("/fxml/festival-offers-management-view.fxml");
     }
 
     @FXML
@@ -85,23 +68,29 @@ public class StaffController {
         loadScene("/fxml/login.fxml");
     }
 
+    @FXML
+    private void handleBack() {
+
+        loadScene("/fxml/login.fxml");
+    }
+
     private void loadScene(String fxmlFile) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(getClass().getResource("/css/styles.css").toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/styles.css")).toExternalForm());
 
             Stage stage = (Stage) staffWelcomeLabel.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
-            showAlert("Error", "Failed to load scene: " + e.getMessage());
+            showAlert("Failed to load scene: " + e.getMessage());
         }
     }
 
-    private void showAlert(String title, String message) {
+    private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
+        alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();

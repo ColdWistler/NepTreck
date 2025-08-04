@@ -36,7 +36,7 @@ public class LoginController implements Initializable {
     @FXML
     private Button loginButton;
 
-    // FXML fields for localization - ensure these fx:id's are in your login.fxml
+
     @FXML
     private Label loginTitle;
     @FXML
@@ -129,6 +129,7 @@ public class LoginController implements Initializable {
         }
     }
 
+
     @FXML
     private void handleLogin() {
         try {
@@ -142,9 +143,19 @@ public class LoginController implements Initializable {
                 return;
             }
 
-            if (authService.authenticateUser(username, password)) {
+            // Get the authenticated user object
+            var user = authService.getUserIfAuthenticated(username, password);
+
+            if (user != null) {
                 FileDataManager.logActivity(username, "Login successful");
-                TourismApp.switchScene("/fxml/dashboard.fxml", bundle.getString("app.dashboardTitle"));
+
+                // Route based on user role
+                if (user.isAdmin()) {
+                    TourismApp.switchScene("/fxml/dashboard.fxml", "Admin Dashboard");
+                } else if (user.isStaff()) {
+                    TourismApp.switchScene("/fxml/staff-home.fxml", "Staff Dashboard");
+                }
+
             } else {
                 showError(bundle.getString("login.error.invalidCredentials"));
                 passwordField.clear();
@@ -156,6 +167,7 @@ public class LoginController implements Initializable {
             FileDataManager.logActivity("SYSTEM", "Login error: " + e.getMessage());
         }
     }
+
 
     @FXML
     private void handleForgotPassword() {

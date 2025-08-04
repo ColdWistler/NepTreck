@@ -52,7 +52,15 @@ public class TourPackageService {
             return false;
         }
     }
+    private String category;
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
     public boolean deletePackage(String packageId) {
         try {
             List<TourPackage> packages = FileDataManager.getAllPackages();
@@ -158,7 +166,7 @@ public class TourPackageService {
         if (tourPackage.getPackageName() == null || tourPackage.getPackageName().trim().isEmpty()) return false;
         if (tourPackage.getDescription() == null || tourPackage.getDescription().trim().isEmpty()) return false;
         if (tourPackage.getPrice() == null || tourPackage.getPrice() <= 0) return false;
-        if (tourPackage.getDuration() == null || tourPackage.getDuration() <= 0) return false;
+        if (tourPackage.getDurationDays() == null || tourPackage.getDurationDays() <= 0) return false;
 
         return true;
     }

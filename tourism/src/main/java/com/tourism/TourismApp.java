@@ -22,6 +22,9 @@ public class TourismApp extends Application {
 
     private static Locale currentLocale; // Static field to hold the current locale for the application
 
+    public static void switchScene(String s) {
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage; // Store the primary stage reference

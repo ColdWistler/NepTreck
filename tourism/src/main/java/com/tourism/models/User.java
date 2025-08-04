@@ -101,6 +101,22 @@ public class User {
         this.lastLogin = lastLogin;
     }
 
+    public boolean isAdmin() {
+        return role != null && role.equalsIgnoreCase("admin");
+    }
+
+    public boolean isStaff() {
+        return role != null && role.equalsIgnoreCase("staff");
+    }
+
+    public boolean isGuide() {
+        return role != null && role.equalsIgnoreCase("guide");
+    }
+
+    public boolean isTourist() {
+        return role != null && role.equalsIgnoreCase("tourist");
+    }
+
     @Override
     public String toString() {
         return "User{" +

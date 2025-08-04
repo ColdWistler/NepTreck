@@ -44,10 +44,13 @@ public class BookingController implements Initializable {
     @FXML private TableColumn<Booking, String> statusColumn;
     @FXML private TableColumn<Booking, Double> totalAmountColumn;
     @FXML private TableColumn<Booking, LocalDateTime> travelDateColumn;
-    @FXML private TableColumn<Booking, String> guideColumn; // Ensure this is present and mapped
+    @FXML private TableColumn<Booking, String> guideColumn;
 
     @FXML private Label statusLabel;
-    @FXML private Button backButton; // NEW: Back button FXML element
+    @FXML private Button backButton;
+
+    @FXML private DatePicker fromDatePicker;
+    @FXML private DatePicker toDatePicker;
 
     private BookingService bookingService;
     private TouristService touristService;
@@ -83,7 +86,7 @@ public class BookingController implements Initializable {
         if (bookingIdColumn != null) {
             bookingIdColumn.setCellValueFactory(new PropertyValueFactory<>("bookingId"));
         }
-        // IMPORTANT: These columns display IDs. If you want names, you'd need custom cell factories or a different model.
+        // IMPORTANT: These columns display IDs.
         if (touristColumn != null) {
             touristColumn.setCellValueFactory(new PropertyValueFactory<>("touristId"));
         }
@@ -124,7 +127,7 @@ public class BookingController implements Initializable {
         if (deleteBookingButton != null) {
             deleteBookingButton.setOnAction(event -> handleDeleteBooking());
         }
-        // Assuming refreshButton in FXML maps to refreshTableButton in the code snippet I previously provided
+
         if (refreshButton != null) {
             refreshButton.setOnAction(event -> handleRefresh());
         }
@@ -190,6 +193,17 @@ public class BookingController implements Initializable {
             // Get form data
             Tourist selectedTourist = touristComboBox.getValue();
             TourPackage selectedPackage = packageComboBox.getValue();
+
+            if (selectedPackage != null && selectedPackage.getMaxAltitude() != null && selectedPackage.getMaxAltitude() > 2500.0) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("High Altitude Warning");
+                alert.setHeaderText("This tour reaches high altitude");
+                alert.setContentText("This tour reaches an altitude of " +
+                selectedPackage.getMaxAltitude() + " meters.\n" +
+                "Please ensure the traveler is medically fit.");
+                alert.showAndWait();
+            }
+
             Guide selectedGuide = guideComboBox.getValue();
             LocalDate travelDate = travelDatePicker.getValue();
             int numberOfPeople = Integer.parseInt(numberOfPeopleField.getText().trim());
@@ -337,16 +351,16 @@ public class BookingController implements Initializable {
     }
 
     private boolean validateInput() {
-        // ... (existing validation logic) ...
+        //  (existing validation logic)
         return true;
     }
 
     private void populateFormWithBooking(Booking booking) {
-        // ... (existing form population logic) ...
+        // (existing form population logic)
     }
 
     private void clearForm() {
-        // ... (existing clear form logic) ...
+        // (existing clear form logic)
     }
 
     private void showStatus(String message, boolean isSuccess) {
@@ -364,7 +378,7 @@ public class BookingController implements Initializable {
         }
     }
 
-    // NEW: Method to handle returning to the Dashboard
+
     @FXML
     private void handleBackToDashboard() {
         try {

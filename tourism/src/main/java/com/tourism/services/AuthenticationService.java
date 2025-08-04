@@ -9,6 +9,9 @@ import com.tourism.utils.SessionManager;
  */
 public class AuthenticationService {
 
+    /**
+     * Authenticates user credentials and sets session if valid.
+     */
     public boolean authenticateUser(String username, String password) {
         try {
             User user = FileDataManager.findUserByUsername(username);
@@ -28,6 +31,32 @@ public class AuthenticationService {
         }
     }
 
+    /**
+     * Returns User object if credentials are valid, else null.
+     * This is used for role-based redirection in the login controller.
+     */
+    public User getUserIfAuthenticated(String username, String password) {
+        try {
+            User user = FileDataManager.findUserByUsername(username);
+
+            if (user != null && user.getPassword().equals(password) && user.isActive()) {
+                SessionManager.setCurrentUser(user);
+                FileDataManager.logActivity(username, "User authenticated (role-based login)");
+                return user;
+            } else {
+                FileDataManager.logActivity(username, "Role-based login failed");
+                return null;
+            }
+        } catch (Exception e) {
+            System.err.println("Role-based login error: " + e.getMessage());
+            FileDataManager.logActivity(username, "Role-based login error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Changes user's password if old password is correct.
+     */
     public boolean changePassword(String username, String oldPassword, String newPassword) {
         try {
             User user = FileDataManager.findUserByUsername(username);
