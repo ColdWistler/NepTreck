@@ -9,6 +9,7 @@ public class Tourist {
     private String email;     // Corresponds to parts[3]
     private String phoneNumber; // Corresponds to parts[4]
     private String nationality; // Corresponds to parts[5]
+    private String address;     // NEW: Added address field
     private boolean active;     // Corresponds to parts[6]
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
@@ -20,9 +21,7 @@ public class Tourist {
         this.active = true; // Default to active
     }
 
-    // Constructor matching the arguments from TouristController's handleCreateTourist
-    // (touristId, accountId, fullName, email, phoneNumber, nationality)
-    // Note: The 'accountId' can be null initially, or generated.
+    // Existing 6-argument constructor
     public Tourist(String touristId, String accountId, String fullName, String email, String phoneNumber, String nationality) {
         this(); // Call default constructor for createdAt, updatedAt, active
         this.touristId = touristId;
@@ -31,11 +30,21 @@ public class Tourist {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.nationality = nationality;
+        this.address = "N/A"; // Default value for new field
     }
 
-    // Constructor used by parseTouristFromString in FileDataManager (fewer initial arguments)
-    // You might also use this or the default constructor in parseTouristFromString
-    // if you assign properties one by one.
+    // NEW: Constructor to match the 5 arguments used in StaffBookingController
+    public Tourist(String touristId, String fullName, String phoneNumber, String nationality, String address) {
+        this(); // Call default constructor for createdAt, updatedAt, active
+        this.touristId = touristId;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.nationality = nationality;
+        this.address = address;
+        this.accountId = null; // Default to null as it's not provided in this constructor
+        this.email = "N/A"; // Default email
+    }
+
 
     // Getters and Setters
     public String getTouristId() { return touristId; }
@@ -56,6 +65,10 @@ public class Tourist {
     public String getNationality() { return nationality; }
     public void setNationality(String nationality) { this.nationality = nationality; }
 
+    // NEW: Getter and Setter for address
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
+
     public boolean isActive() { return active; }
     public void setActive(boolean active) { this.active = active; }
 
@@ -68,10 +81,13 @@ public class Tourist {
     @Override
     public String toString() {
         return "Tourist{" +
-               "touristId='" + touristId + '\'' +
-               ", fullName='" + fullName + '\'' +
-               ", email='" + email + '\'' +
-               ", active=" + active +
-               '}';
+                "touristId='" + touristId + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", address='" + address + '\'' + // Include address in toString
+                ", active=" + active +
+                '}';
     }
 }
