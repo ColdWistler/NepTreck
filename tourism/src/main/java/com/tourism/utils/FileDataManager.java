@@ -82,32 +82,46 @@ public class FileDataManager {
     private static List<TourPackage> createDefaultPackages() {
         List<TourPackage> packages = new ArrayList<>();
 
-        // Package 1
+        // Package 1: Kathmandu Valley Tour (low altitude)
         TourPackage pkg1 = new TourPackage("PKG001", "Kathmandu Valley Tour",
                 "Explore the cultural heritage of Kathmandu", 150.0, 3, "Cultural");
         pkg1.setDestination("Kathmandu");
         pkg1.setDifficulty("EASY");
         pkg1.setSeason("ALL_YEAR");
         pkg1.setMaxParticipants(20);
+        pkg1.setMaxAltitude(1400.0); // Set altitude for Kathmandu
         packages.add(pkg1);
 
-        // Package 2
+        // Package 2: Everest Base Camp Trek (high altitude - will trigger warning)
         TourPackage pkg2 = new TourPackage("PKG002", "Everest Base Camp Trek",
                 "Adventure trek to Everest Base Camp", 1200.0, 14, "Adventure");
         pkg2.setDestination("Everest Region");
         pkg2.setDifficulty("HARD");
         pkg2.setSeason("SPRING");
         pkg2.setMaxParticipants(10);
+        pkg2.setMaxAltitude(5364.0); // Set altitude for EBC (above 2500m)
         packages.add(pkg2);
 
-        // Package 3
+        // Package 3: Pokhara Lake Tour (low altitude)
         TourPackage pkg3 = new TourPackage("PKG003", "Pokhara Lake Tour",
                 "Scenic tour of Pokhara lakes and mountains", 200.0, 2, "Nature");
         pkg3.setDestination("Pokhara");
         pkg3.setDifficulty("EASY");
         pkg3.setSeason("ALL_YEAR");
         pkg3.setMaxParticipants(15);
+        pkg3.setMaxAltitude(822.0); // Set altitude for Pokhara
         packages.add(pkg3);
+
+        // Additional package to demonstrate another high-altitude option
+        TourPackage pkg4 = new TourPackage("PKG004", "Annapurna Base Camp Trek",
+                "Trek to the base of Annapurna", 1000.0, 10, "Adventure");
+        pkg4.setDestination("Annapurna Region");
+        pkg4.setDifficulty("MEDIUM");
+        pkg4.setSeason("AUTUMN");
+        pkg4.setMaxParticipants(12);
+        pkg4.setMaxAltitude(4130.0); // Set altitude for ABC (above 2500m)
+        packages.add(pkg4);
+
 
         return packages;
     }
@@ -812,6 +826,13 @@ public class FileDataManager {
         return null;
     }
 
+    /**
+     * Converts a TourPackage object to a string for file storage.
+     * The order of fields is crucial for consistent parsing.
+     * Current order: ID|Name|Description|Price|DurationDays|Category|Destination|Difficulty|Season|MaxParticipants|MaxAltitude|Active
+     * @param pkg The TourPackage object to convert.
+     * @return A pipe-separated string representation of the TourPackage.
+     */
     private static String packageToString(TourPackage pkg) {
         StringBuilder sb = new StringBuilder();
         sb.append(pkg.getPackageId() != null ? pkg.getPackageId() : "").append("|");
@@ -824,14 +845,23 @@ public class FileDataManager {
         sb.append(pkg.getDifficulty() != null ? pkg.getDifficulty() : "").append("|");
         sb.append(pkg.getSeason() != null ? pkg.getSeason() : "").append("|");
         sb.append(pkg.getMaxParticipants() != null ? pkg.getMaxParticipants().toString() : "0").append("|");
+        sb.append(pkg.getMaxAltitude() != null ? pkg.getMaxAltitude().toString() : "0.0").append("|"); // ADDED MAX ALTITUDE
         sb.append(String.valueOf(pkg.isActive()));
         return sb.toString();
     }
 
+    /**
+     * Parses a string line from the packages file into a TourPackage object.
+     * The order of fields must match the packageToString method.
+     * Expected order: ID|Name|Description|Price|DurationDays|Category|Destination|Difficulty|Season|MaxParticipants|MaxAltitude|Active
+     * @param line The string line to parse.
+     * @return A TourPackage object, or null if parsing fails.
+     */
     private static TourPackage parsePackageFromString(String line) {
         try {
             String[] parts = line.split("\\|");
-            if (parts.length >= 6) {
+            // Updated minimum length to account for the new maxAltitude field (11 fields + active = 12 parts)
+            if (parts.length >= 12) { // Changed from >=6 to >=12 to include all fields up to active
                 TourPackage pkg = new TourPackage();
 
                 pkg.setPackageId(parts[0]);
@@ -871,16 +901,31 @@ public class FileDataManager {
                     }
                 }
 
-                if (parts.length > 10) {
-                    pkg.setActive(Boolean.parseBoolean(parts[10]));
+                // Parse maxAltitude safely (new field at index 10)
+                if (parts.length > 10 && !parts[10].isEmpty()) {
+                    try {
+                        pkg.setMaxAltitude(Double.parseDouble(parts[10]));
+                    } catch (NumberFormatException e) {
+                        pkg.setMaxAltitude(0.0); // Default if parsing fails
+                    }
+                } else {
+                    pkg.setMaxAltitude(0.0); // Default if field is missing
+                }
+
+
+                if (parts.length > 11) { // active field is now at index 11
+                    pkg.setActive(Boolean.parseBoolean(parts[11]));
                 } else {
                     pkg.setActive(true);
                 }
 
                 return pkg;
+            } else {
+                System.err.println("WARNING: Package line has fewer parts than expected (" + parts.length + "): " + line);
             }
         } catch (Exception e) {
             System.err.println("Error parsing package: " + line + " - " + e.getMessage());
+            e.printStackTrace(); // Print full stack trace for parsing errors
         }
         return null;
     }

@@ -1,89 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tourism.controllers.StaffBookingController">
-    <top>
-        <!-- Header -->
-        <HBox alignment="CENTER_LEFT" spacing="20.0" styleClass="header">
-            <children>
-                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="header-logo" />
-                <Label styleClass="header-title" text="VisiNepalTech">
-                    <font>
-                        <Font name="System Bold" size="20.0" />
-                    </font>
-                </Label>
-                <Region HBox.hgrow="ALWAYS" />
-                <Label styleClass="form-header" text="Create New Booking">
-                    <font>
-                        <Font name="System Bold" size="18.0" />
-                    </font>
-                </Label>
-            </children>
-            <padding>
-                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-            </padding>
+<VBox alignment="TOP_CENTER" spacing="20.0" styleClass="form-container"
+      xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.tourism.controllers.StaffBookingController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <Label styleClass="form-title" text="Create New Booking">
+        <font>
+            <Font name="System Bold" size="24.0" />
+        </font>
+    </Label>
+
+    <GridPane hgap="15.0" vgap="15.0">
+        <columnConstraints>
+            <javafx.scene.layout.ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+            <javafx.scene.layout.ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
+        </columnConstraints>
+
+        <!-- Tourist Information -->
+        <Label text="Tourist Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="nameField" promptText="Enter tourist's full name" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+        <Label text="Contact:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="contactField" promptText="Enter contact number or email" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+        <Label text="Country:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <ComboBox fx:id="countryComboBox" promptText="Select Country" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+        <Label text="Address:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextArea fx:id="addressArea" promptText="Enter address" prefRowCount="3" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+        <Label text="Number of People:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <TextField fx:id="numberOfPeopleField" promptText="e.g., 2" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+        <!-- Package Type -->
+        <Label text="Package Type:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+        <HBox spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <RadioButton fx:id="normalPackageRadio" text="Normal Package">
+                <toggleGroup>
+                    <ToggleGroup fx:id="packageTypeToggleGroup" />
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="premiumPackageRadio" text="Premium Package" toggleGroup="$packageTypeToggleGroup" />
         </HBox>
-    </top>
 
-    <center>
-        <VBox spacing="20.0" alignment="TOP_CENTER" styleClass="main-content-area">
-            <padding>
-                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-            </padding>
-            <children>
-                <!-- Booking Details Form -->
-                <VBox spacing="15.0" prefWidth="500.0" styleClass="form-section">
-                    <padding>
-                        <Insets top="20.0" right="20.0" bottom="20.0" left="20.0" />
-                    </padding>
-                    <children>
-                        <Label styleClass="section-title" text="Booking Details">
-                            <font>
-                                <Font name="System Bold" size="16.0" />
-                            </font>
-                        </Label>
+        <!-- Tour Package / Attractions -->
+        <Label text="Attraction/Package:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
+        <ComboBox fx:id="attractionsComboBox" promptText="Select Tour Package" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
-                        <Label text="Tourist:" styleClass="form-label" />
-                        <ComboBox fx:id="touristComboBox" promptText="Select Tourist" prefWidth="Infinity" styleClass="form-combo" />
+        <!-- Transportation -->
+        <Label text="Transportation:" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+        <ComboBox fx:id="transportationComboBox" promptText="Select Transportation" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
 
-                        <Label text="Tour Package:" styleClass="form-label" />
-                        <ComboBox fx:id="packageComboBox" promptText="Select Package" prefWidth="Infinity" styleClass="form-combo" />
-
-                        <Label text="Guide (Optional):" styleClass="form-label" />
-                        <ComboBox fx:id="guideComboBox" promptText="Select Guide" prefWidth="Infinity" styleClass="form-combo" />
-
-                        <Label text="Travel Date:" styleClass="form-label" />
-                        <DatePicker fx:id="travelDatePicker" promptText="Select Date" prefWidth="Infinity" styleClass="form-datepicker" />
-
-                        <Label text="Number of People:" styleClass="form-label" />
-                        <TextField fx:id="numberOfPeopleField" promptText="Enter number of people" styleClass="form-input" />
-
-                        <Label text="Special Requests:" styleClass="form-label" />
-                        <TextArea fx:id="specialRequestsArea" promptText="Any special requests..." prefRowCount="3" styleClass="form-textarea" />
-
-                        <HBox spacing="10.0" alignment="CENTER_RIGHT">
-                            <children>
-                                <Label styleClass="total-label" text="Total Amount:" />
-                                <Label fx:id="totalAmountLabel" styleClass="total-amount" text="0.00" />
-                            </children>
-                        </HBox>
-
-                        <HBox spacing="10.0" alignment="CENTER_RIGHT">
-                            <children>
-                                <Button fx:id="submitButton" text="Create Booking" styleClass="primary-button" disable="true" />
-                                <Button fx:id="clearButton" text="Clear Form" styleClass="secondary-button" />
-                            </children>
-                        </HBox>
-
-                        <Label fx:id="statusLabel" text="" styleClass="status-label" />
-                    </children>
-                </VBox>
-            </children>
+        <!-- Activity Preferences -->
+        <Label text="Activity Preferences:" GridPane.columnIndex="0" GridPane.rowIndex="8" />
+        <VBox spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <CheckBox fx:id="relaxingCheckBox" text="Relaxing" />
+            <CheckBox fx:id="historicCheckBox" text="Historic Sites" />
+            <CheckBox fx:id="museumsCheckBox" text="Museums" />
+            <CheckBox fx:id="trekkingCheckBox" text="Trekking" />
         </VBox>
-    </center>
-</BorderPane>
+
+        <!-- Timeline / Dates -->
+        <Label text="Custom Package Name:" GridPane.columnIndex="0" GridPane.rowIndex="9" />
+        <TextField fx:id="packageNameField" promptText="Optional: Enter custom package name" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+
+        <Label text="From Date:" GridPane.columnIndex="0" GridPane.rowIndex="10" />
+        <DatePicker fx:id="fromDatePicker" promptText="Select start date" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+
+        <Label text="To Date:" GridPane.columnIndex="0" GridPane.rowIndex="11" />
+        <DatePicker fx:id="toDatePicker" promptText="Select end date" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+
+        <!-- Total Amount -->
+        <Label text="Total Amount:" GridPane.columnIndex="0" GridPane.rowIndex="12" />
+        <Label fx:id="totalAmountLabel" text="0.00" GridPane.columnIndex="1" GridPane.rowIndex="12">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+    </GridPane>
+
+    <!-- Buttons -->
+    <HBox alignment="CENTER" spacing="20.0">
+        <Button fx:id="confirmButton" text="Confirm Details" styleClass="action-button" />
+        <Button fx:id="submitButton" text="Submit Booking" styleClass="primary-button" disable="true" />
+    </HBox>
+</VBox>

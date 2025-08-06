@@ -250,7 +250,7 @@ public class StaffBookingController implements Initializable {
                 return;
             }
 
-            // High altitude warning (similar to admin controller)
+            // --- THIS IS THE HIGH ALTITUDE WARNING POPUP LOGIC ---
             if (selectedPackage.getMaxAltitude() != null && selectedPackage.getMaxAltitude() > 2500.0) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("High Altitude Warning");
@@ -258,8 +258,9 @@ public class StaffBookingController implements Initializable {
                 alert.setContentText("This tour reaches an altitude of " +
                         selectedPackage.getMaxAltitude() + " meters.\n" +
                         "Please ensure the traveler is medically fit.");
-                alert.showAndWait();
+                alert.showAndWait(); // This line displays the popup!
             }
+            // --- END OF HIGH ALTITUDE WARNING POPUP LOGIC ---
 
             // Collect activity preferences
             StringBuilder activities = new StringBuilder();
